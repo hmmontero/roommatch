@@ -1,1 +1,15 @@
 // Specific CSS for your home-page
+.card-image {
+  width: 300px;
+  border-radius: 7px;
+
+}
+
+.card{
+  width: 400px;
+}
+
+.card-container{
+  display: flex;
+  justify-content: space-around;
+}
