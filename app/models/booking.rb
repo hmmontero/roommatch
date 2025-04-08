@@ -9,3 +9,4 @@ class Booking < ApplicationRecord
     rejected: 2
   }
 end
+
