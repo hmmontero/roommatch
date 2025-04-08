@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Lugares Disponibles</h1>
+    <% if user_signed_in? %>
+      <%= link_to 'Publicar Nuevo Lugar', new_place_path, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <% @places.each do |place| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= place.title %></h5>
+            <p class="card-text text-muted"><%= place.address %></p>
+            <p class="card-text"><strong>Tipo:</strong> <%= place.place_type %></p>
+            <p class="card-text"><%= number_to_currency(place.price) %> / mes</p>
+            <p class="card-text"><small class="text-muted"><%= place.available_rooms %> habitaciones disponibles</small></p>
+          </div>
+
+          <div class="card-footer bg-white">
+            <%= link_to 'Ver Detalles', place_path(place), class: 'btn btn-outline-primary' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<%= form_with(model: place, local: true) do |form| %>
+  <% if place.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(place.errors.count, "error") %> impidieron guardar este lugar:</h4>
+      <ul>
+        <% place.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, 'Título', class: 'form-label' %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :place_type, 'Tipo de lugar', class: 'form-label' %>
+    <%= form.select :place_type, ['Casa', 'Departamento', 'Habitación', 'Loft'], {}, class: 'form-select' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, 'Descripción', class: 'form-label' %>
+    <%= form.text_area :description, class: 'form-control', rows: 4 %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :address, 'Dirección', class: 'form-label' %>
+    <%= form.text_field :address, class: 'form-control' %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <%= form.label :available_rooms, 'Habitaciones disponibles', class: 'form-label' %>
+      <%= form.number_field :available_rooms, class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <%= form.label :price, 'Precio mensual', class: 'form-label' %>
+      <div class="input-group">
+        <span class="input-group-text">$</span>
+        <%= form.number_field :price, step: 0.01, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :available_date, 'Fecha disponible', class: 'form-label' %>
+    <%= form.date_field :available_date, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

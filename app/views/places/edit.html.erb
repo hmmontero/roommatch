@@ -1,0 +1,19 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2>Editar Lugar</h2>
+        </div>
+
+        <div class="card-body">
+          <%= render 'form', place: @place %>
+        </div>
+
+        <div class="card-footer">
+          <%= link_to 'Cancelar', @place, class: 'btn btn-outline-secondary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
