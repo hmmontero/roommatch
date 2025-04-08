@@ -33,6 +33,7 @@
 
 .icon-image{
   width: 30px;
+  margin-bottom: 10px;
 }
 
 
@@ -64,8 +65,8 @@
   height: 500px;
   width: 100%;
   object-fit: cover;
-  filter: grayscale(100%); /* Convierte la imagen a escala de grises */
-  opacity: 0.8; /* Ajusta la opacidad */
+  filter: grayscale(100%);
+  opacity: 0.8;
 }
 
 .banner-text {
@@ -87,4 +88,40 @@
 
 .banner-text p {
   font-size: 1.2em;
+}
+
+.title-FAQ{
+  text-align: center;
+  margin-block: 30px;
+}
+
+
+@media (max-width: 768px) {
+  .card-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-image {
+    width: 90%;
+    border-radius: 7px;
+    object-fit: cover;
+  }
+
+  .icons-container{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .icons-card{
+    width: 90%;
+  }
+
 }
