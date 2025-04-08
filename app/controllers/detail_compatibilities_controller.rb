@@ -9,7 +9,7 @@ class DetailCompatibilitiesController < ApplicationController
 
   def create
     @detail_compatibility = DetailCompatibility.find(params[:id])
-    
+
     if @detail_compatibility.save
       redirect_to user_path(@user)
     else
@@ -23,6 +23,11 @@ class DetailCompatibilitiesController < ApplicationController
 
   def update
     @detail_compatibility = DetailCompatibility.find(params[:id])
+    if @detail_compatibility.update(product_params)
+      redirect_to user_path(@user), notice: "Updated!"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
