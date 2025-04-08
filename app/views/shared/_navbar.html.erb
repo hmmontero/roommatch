@@ -15,7 +15,9 @@
             <%= link_to "Home", "#", class: "nav-link" %>
           </li>
           <li class="nav-item">
-          <% my_pending_bookings = Booking.where(id: current_user.places.map(&:id)).where(status: "pending") %>
+          <% my_pending_bookings = Booking.where(place_id: current_user.places.map(&:id)).where(status: "pending") %>
+          <% my_bookings = Booking.where(id: current_user.places.map(&:id)) %>
+
             <!-- Button trigger modal -->
             <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
               <%= "Mis solicitudes (#{my_pending_bookings.size})" %>
