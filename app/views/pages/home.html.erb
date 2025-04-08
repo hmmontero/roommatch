@@ -1,26 +1,54 @@
-<h1>Encuentra a tu roomie segun compatibilidad</h1>
-<p>Encuentra alojamientos con cocina, wifi, jacuzzis y mucho más.</p>
 
+<div class="banner">
+  <div class="banner-image-container">
+    <%= image_tag("banner1.jpg", alt: "tv", class: "banner-image") %>
+    <div class="banner-text">
+      <h1>Encuentra a tu roomie según compatibilidad</h1>
+      <p>Encuentra alojamientos con cocina, wifi, jacuzzis y mucho más.</p>
+    </div>
+  </div>
+</div>
 <div class="card-container">
    <div class ="card">
       <%= image_tag("room1.jpg", alt: "tv", class: "card-image") %>
-      <p class="texto-card"> <strong>LG </strong> <br>
-      Televisor 4k Nanocell Smart 55'</p>
-      <p class="price">$500</p>
-    <p class="detail">New offers</p>
+      <p class="title-card"> Cabaña en Viña</p>
+      <p class="texto-card">Cabaña con quincho y piscina.</p>
+      <p class="price">$500 por semana</p>
   </div>
     <div class ="card">
       <%= image_tag("room2.jpg", alt: "tv", class: "card-image") %>
-      <p class="texto-card"> <strong>LG </strong> <br>
-      Televisor 4k Nanocell Smart 55'</p>
-      <p class="price">$500</p>
-    <p class="detail">New offers</p>
+      <p class="texto-card"> Depto en Santiago<br>
+      Cabaña con quincho y piscina.</p>
+      <p class="price">$700 por semana</p>
   </div>
     <div class ="card">
       <%= image_tag("room3.jpg", alt: "tv", class: "card-image") %>
-      <p class="texto-card"> <strong>LG </strong> <br>
+      <p class="texto-card"> Depto en Las Condes <br>
       Televisor 4k Nanocell Smart 55'</p>
-      <p class="price">$500</p>
-    <p class="detail">New offers</p>
+      <p class="price">$900 por semana</p>
   </div>
   </div>
+
+<div class="icons-container">
+  <div class="icons-card">
+      <%= image_tag("shield.svg", alt: "tv", class: "icon-image") %>
+    <h3>Seguridad</h3>
+    <p>Nos aseguramos que tus datos esten seguros con nosotros y asi evitas
+      publicar tus informacion reservado con cualquiera.
+    </p>
+  </div>
+    <div class="icons-card">
+      <%= image_tag("thunder.svg", alt: "tv", class: "icon-image") %>
+    <h3>Rapidez</h3>
+    <p>Nos aseguramos que tus datos esten seguros con nosotros y asi evitas
+      publicar tus informacion reservado con cualquiera.
+    </p>
+  </div>
+    <div class="icons-card">
+      <%= image_tag("shield.svg", alt: "tv", class: "icon-image") %>
+    <h3>Confianza</h3>
+    <p>Nos aseguramos que tus datos esten seguros con nosotros y asi evitas
+      publicar tus informacion reservado con cualquiera.
+    </p>
+  </div>
+</div>
