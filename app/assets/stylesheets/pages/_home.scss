@@ -1,4 +1,6 @@
 // Specific CSS for your home-page
+
+
 .card-image {
   width: 300px;
   border-radius: 7px;
@@ -21,11 +23,12 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-block: 50px;
+  max-width: 950px;
+  margin: 70px auto;
 }
 
 .icons-card{
-  width: 300px;
+  width: 280px;
 }
 
 .icon-image{
@@ -34,7 +37,21 @@
 
 
 .texto-card{
+  margin:0;
+  font-size: 0.9rem;
+  color:gray;
+}
+
+.title-card{
+  margin-bottom: 0;
   padding-top: 5px;
+  font-weight: 600;
+  color: rgb(156, 211, 5);
+}
+
+.price{
+  color: black;
+  font-weight: 600;
 
 }
 
