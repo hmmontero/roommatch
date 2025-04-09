@@ -1,0 +1,51 @@
+<%= form_with(model: place, local: true) do |form| %>
+  <% if place.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(place.errors.count, "error") %> impidieron guardar este lugar:</h4>
+      <ul>
+        <% place.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <label>Título:</label>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <label>Tipo de lugar:</label>
+    <%= form.select :place_type, ['Casa', 'Departamento', 'Habitación', 'Loft'] %>
+  </div>
+
+  <div>
+    <label>Descripción:</label>
+    <%= form.text_area :description, rows: 4 %>
+  </div>
+
+  <div>
+    <label>Dirección:</label>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <label>Habitaciones disponibles:</label>
+    <%= form.number_field :available_rooms %>
+  </div>
+
+  <div>
+    <label>Precio mensual:</label>
+    <%= form.number_field :price, step: 0.01 %>
+  </div>
+
+  <div>
+    <label>Fecha disponible:</label>
+    <%= form.date_field :available_date %>
+  </div>
+
+  <div>
+    <%= form.submit 'Guardar' %>
+  </div>
+<% end %>

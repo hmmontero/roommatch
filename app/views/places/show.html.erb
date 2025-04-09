@@ -1,0 +1,30 @@
+<div>
+  <h2><%= @place.title %></h2>
+  <p><%= @place.address %></p>
+  <p><strong>Tipo:</strong> <%= @place.place_type %></p>
+
+  <div>
+    <h4>Descripción</h4>
+    <p><%= @place.description %></p>
+  </div>
+
+  <div>
+    <h4>Detalles</h4>
+    <p><strong>Precio:</strong> <%= number_to_currency(@place.price) %></p>
+    <p><strong>Habitaciones:</strong> <%= @place.available_rooms %></p>
+    <p><strong>Disponible desde:</strong> <%= @place.available_date.strftime('%d/%m/%Y') %></p>
+  </div>
+
+  <% if user_signed_in? %>
+    <% if current_user == @place.user %>
+      <%= link_to 'Editar', edit_place_path(@place) %>
+      <%= link_to 'Eliminar', @place, method: :delete,
+                  data: { confirm: '¿Estás seguro de eliminar este lugar?' } %>
+    <% else %>
+      <h5>Solicitar Reserva</h5>
+      <%= render 'bookings/form', booking: @booking %>
+    <% end %>
+  <% else %>
+    <%= link_to 'Inicia sesión para reservar', new_user_session_path %>
+  <% end %>
+</div>

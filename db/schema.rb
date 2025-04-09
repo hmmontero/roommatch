@@ -57,7 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_09_044311) do
     t.float "price"
     t.string "title"
     t.text "description"
-    t.string "type"
+    t.string "place_type"
     t.date "available_date"
     t.float "latitude"
     t.float "longitude"
