@@ -6,14 +6,23 @@
 </div>
 
 
-
-<div class="organization">
-  <div class="">
+<%= form_with url: detail_compatibilities_path, method: :post do %>
+  <div class="organization">
     <div class="">
-<% @detail_compatibilities.each do |c| %>
-  <input class="compatibility-question" type="checkbox" id="option-<%= c.title %>">
-  <label class="m-2" for="option-<%= c.title %>"><i class="<%= c.icon %>"></i> <%= c.title_spanish %></label>
-<% end %>
+      <div class="">
+        <% @detail_compatibilities.each do |c| %>
+          <div class="form-check form-check-inline">
+            <%= check_box_tag "compatibilities[]", c.id, false, id: "option-#{c.title}", class: "compatibility-question" %>
+            <%= label_tag "option-#{c.title}", class: "m-2" do %>
+              <i class="<%= c.icon %>"></i> <%= c.title_spanish %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <%= submit_tag "Guardar mis gustos", class: "btn-detail-compatibility" %>
     </div>
   </div>
-</div>
+<% end %>
