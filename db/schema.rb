@@ -29,6 +29,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_09_044311) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "icon"
+    t.string "title_spanish"
   end
 
   create_table "detail_compatibilities", force: :cascade do |t|
