@@ -10,10 +10,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :places do
-    resources :bookings, only: %i[create update]
+    resources :bookings, only: %i[create]
   end
+
 
   resources :detail_compatibilities, only: %i[create show new edit update]
   resources :users, only: :show
 
+  patch "bookings/:id", to: "bookings#accept", as: :accept
+  patch "bookings/:id", to: "bookings#decline", as: :decline
 end

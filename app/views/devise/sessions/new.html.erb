@@ -1,20 +1,44 @@
-<h2>Log in</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+<div class="container-fluid p-0" style="background: linear-gradient(45deg, #d9e2ec, #f0f4f8); min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+  <div class="col-md-6 col-lg-4">
+    <div class="card" style="background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); backdrop-filter: blur(8px);">
+
+      <div class="card-header text-center" style="background: linear-gradient(45deg, #00bcd4, #673ab7); padding: 1.5rem; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+        <h2 class="text-white mb-0" style="font-weight: 700;">Bienvenido a Roommatch</h2>
+        <small class="text-white-50" style="font-size: 0.9rem;">Encuentra tu roomie ideal</small>
+      </div>
+      <div class="card-body" style="padding: 2rem;">
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-group">
+            <%= f.input :email,
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "email", class: "form-control", placeholder: "Correo electrónico", style:"background: #fff; border: 1px solid #ccc; color: #333;" },
+                        label_html: { class: "sr-only" } %>
+          </div>
+          <div class="form-group">
+            <%= f.input :password,
+                        required: true,
+                        input_html: { autocomplete: "current-password", class: "form-control", placeholder: "Contraseña", style:"background: #fff; border: 1px solid #ccc; color: #333;" },
+                        label_html: { class: "sr-only" } %>
+          </div>
+          <% if devise_mapping.rememberable? %>
+            <div class="form-check mb-3">
+              <%= f.input :remember_me,
+                          as: :boolean,
+                          label: "Recordarme",
+                          input_html: { class: "form-check-input" },
+                          wrapper_html: { class: "form-check" } %>
+            </div>
+          <% end %>
+          <div class="form-group">
+            <%= f.button :submit, "Entrar", class: "btn btn-block", style: "background: linear-gradient(45deg, #00bcd4, #673ab7); border: none; color: #fff; font-weight: bold; padding: 0.5rem 0.75rem;" %>
+          </div>
+        <% end %>
+        <div class="text-center mt-3">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

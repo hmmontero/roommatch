@@ -1,0 +1,63 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Lugares Disponibles</h1>
+    <% if user_signed_in? %>
+      <%= link_to 'Publicar Nuevo Lugar', new_place_path, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <% @places.each do |place| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= place.title %></h5>
+            <p class="card-text text-muted"><%= place.address %></p>
+            <p class="card-text"><strong>Tipo:</strong> <%= place.place_type %></p>
+            <p class="card-text"><%= number_to_currency(place.price) %> / mes</p>
+            <p class="card-text">
+              <small class="text-muted">
+                <%= place.available_rooms %> habitaciones disponibles
+              </small>
+            </p>
+          </div>
+
+          <div class="card-footer bg-white">
+            <button type="button"
+                    class="btn btn-outline-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#placeModal-<%= place.id %>">
+              Ver Detalles
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="placeModal-<%= place.id %>" tabindex="-1" aria-labelledby="placeModalLabel-<%= place.id %>" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="placeModalLabel-<%= place.id %>"><%= place.title %></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+              <p><strong>Dirección:</strong> <%= place.address %></p>
+              <p><strong>Tipo:</strong> <%= place.place_type %></p>
+              <p><strong>Precio:</strong> <%= number_to_currency(place.price) %> / mes</p>
+              <p><strong>Habitaciones disponibles:</strong> <%= place.available_rooms %></p>
+              <p><strong>Fecha disponible:</strong> <%= l(place.available_date) %></p>
+              <p><strong>Descripción:</strong></p>
+              <%= simple_form_for([place, Booking.new]) do |f|%>
+                <%= f.submit value: "Match" %>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% console %>
