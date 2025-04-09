@@ -12,6 +12,13 @@
   border: none;
 }
 
+.avatar {
+  width: 50px; /* Tamaño del avatar */
+  height: 50px;
+  border-radius: 50%; /* Para hacerlo circular */
+  margin-top: 10px;
+
+}
 .card-container{
   display: flex;
   justify-content: space-between;
@@ -88,11 +95,13 @@
 
 .banner-text p {
   font-size: 1.2em;
+  color:rgb(142, 142, 142);
 }
 
 .title-FAQ{
   text-align: center;
   margin-block: 30px;
+  font-size: 1.5rem;
 }
 
 
