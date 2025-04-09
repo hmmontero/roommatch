@@ -25,26 +25,34 @@
 
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Solicitudes por revisar</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Solicitudes por revisar</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <% if my_pending_bookings.any? %>
                     <% my_pending_bookings.each do |booking| %>
-                      <%= booking.user.email %>
-                      <%= button_to "Aceptar", accept_path(booking), method: :patch, class: "btn btn-outline-success btn-sm" %>
-                      <%= button_to "Rechazar", decline_path(booking), method: :patch, class: "btn btn-outline-danger btn-sm" %>
+                      <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span><%= booking.user.email %></span>
+                        <div class="d-flex">
+                          <%= button_to "Aceptar", accept_path(booking), method: :patch, class: "btn btn-outline-success btn-sm me-2" %>
+                          <%= button_to "Rechazar", decline_path(booking), method: :patch, class: "btn btn-outline-danger btn-sm" %>
+                        </div>
+                      </div>
                     <% end %>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Entendido</button>
-                  </div>
+                  <% else %>
+                    <p class="text-center">No hay solicitudes pendientes.</p>
+                  <% end %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary">Entendido</button>
                 </div>
               </div>
             </div>
+          </div>
           </li>
           <li class="nav-item dropdown">
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
