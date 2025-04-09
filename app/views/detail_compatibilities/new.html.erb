@@ -10,65 +10,10 @@
 <div class="organization">
   <div class="">
     <div class="">
-      <input class="compatibility-question" type="checkbox" id="option-mascotas">
-      <label class="m-2" for="option-mascotas"><i class="fa-solid fa-dog"></i> Mascotas</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-silencio">
-      <label class="m-2" for="option-silencio"><i class="fa-solid fa-volume-mute"></i> Silencio</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-#{}">
-      <label class="m-2" for="option-musica"><i class="#{Compatibility.icon}"></i> Música</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-orden">
-      <label class="m-2" for="option-orden"><i class="fa-solid fa-list-check"></i> Orden</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-fiestas">
-      <label class="m-2" for="option-fiestas"><i class="fa-solid fa-champagne-glasses"></i> Fiestas</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-cocinar">
-      <label class="m-2" for="option-cocinar"><i class="fa-solid fa-utensils"></i> Cocinar</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-limpieza">
-      <label class="m-2" for="option-limpieza"><i class="fa-solid fa-broom"></i> Limpieza</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-madrugar">
-      <label class="m-2" for="option-madrugar"><i class="fa-solid fa-sun"></i> Madrugar</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-compartir">
-      <label class="m-2" for="option-compartir"><i class="fa-solid fa-handshake"></i> Compartir</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-fumar">
-      <label class="m-2" for="option-fumar"><i class="fa-solid fa-smoking"></i> Fumar</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-series">
-      <label class="m-2" for="option-series"><i class="fa-solid fa-tv"></i> Series</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-deporte">
-      <label class="m-2" for="option-deporte"><i class="fa-solid fa-dumbbell"></i> Deporte</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-minimalismo">
-      <label class="m-2" for="option-minimalismo"><i class="fa-solid fa-wind"></i> Minimalismo</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-naturaleza">
-      <label class="m-2" for="option-naturaleza"><i class="fa-solid fa-leaf"></i> Naturaleza</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-tecnologia">
-      <label class="m-2" for="option-tecnologia"><i class="fa-solid fa-laptop"></i> Tecnología</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-cafe">
-      <label class="m-2" for="option-cafe"><i class="fa-solid fa-mug-hot"></i> Café</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-trabajoremoto">
-      <label class="m-2" for="option-trabajoremoto"><i class="fa-solid fa-house-laptop"></i> TrabajoRemoto</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-espiritualidad">
-      <label class="m-2" for="option-espiritualidad"><i class="fa-solid fa-peace"></i> Espiritualidad</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-viajes">
-      <label class="m-2" for="option-viajes"><i class="fa-solid fa-plane"></i> Viajes</label>
-
-      <input class="compatibility-question" type="checkbox" id="option-visitas">
-      <label class="m-2" for="option-visitas"><i class="fa-solid fa-user-friends"></i> Visitas</label>
+<% @detail_compatibilities.each do |c| %>
+  <input class="compatibility-question" type="checkbox" id="option-<%= c.title %>">
+  <label class="m-2" for="option-<%= c.title %>"><i class="<%= c.icon %>"></i> <%= c.title_spanish %></label>
+<% end %>
     </div>
   </div>
 </div>

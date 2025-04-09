@@ -1,10 +1,10 @@
 class DetailCompatibilitiesController < ApplicationController
   def show
-    @detail_compatibilities = DetailCompatibility.find(params[:id])
+    @detail_compatibilities = Compatibility.all
   end
 
   def new
-    @detail_compatibility = DetailCompatibility.new
+    @detail_compatibilities = Compatibility.all
   end
 
   def create
