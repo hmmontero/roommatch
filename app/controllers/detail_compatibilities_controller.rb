@@ -1,38 +1,35 @@
 class DetailCompatibilitiesController < ApplicationController
   def show
-    @detail_compatibilities = Compatibility.all
+    @compatibilities = Compatibility.all
   end
 
   def new
-    @detail_compatibilities = Compatibility.all
+    @compatibilities = Compatibility.all
   end
 
   def create
-    @detail_compatibility = DetailCompatibility.find(params[:id])
-
-    if @detail_compatibility.save
-      redirect_to user_path(@user)
+    @compatibilities = params[:compatibilities]
+    if @compatibilities.size < 10
+      @compatibilities = Compatibility.all
+      flash.now[:alert] = "Debes seleccionar al menos 10 compatibilidades."
+      render :new, status: :unprocessable_entity
     else
-      render :show, status: :unprocessable_entity
+      @compatibilities.each do |c|
+        DetailCompatibility.create(compatibility_id: c, user: current_user)
+      end
+      redirect_to root_path
     end
   end
 
-  def edit
-    @detail_compatibility = DetailCompatibility.find(params[:id])
-  end
+  # def edit
+  #   @detail_compatibility = DetailCompatibility.find(params[:id])
+  # end
 
-  def update
-    @detail_compatibility = DetailCompatibility.find(params[:id])
-    if @detail_compatibility.update(product_params)
-      redirect_to user_path(@user), notice: "Updated!"
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  private
-
-  def params_detail_compatibilities
-    params.require(:detailCompatibility).permit()
-  end
+  # def update
+  #   @detail_compatibility = DetailCompatibility.find(params[:id])
+  #   if @detail_compatibility.update(product_params)
+  #     redirect_to user_path(@user), notice: "Updated!"
+  #   else
+  #     render :edit, status: :unprocessable_entity
+  #   end
 end
