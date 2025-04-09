@@ -10,4 +10,20 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
-@import "pages/check_box_compatibility_questions"
+@import "pages/check_box_compatibility_questions";
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  }
+
+  main {
+  flex-grow: 1;
+  }
+
+  footer {
+  flex-shrink: 0;
+  }
