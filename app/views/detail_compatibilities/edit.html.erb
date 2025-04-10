@@ -1,0 +1,28 @@
+
+<div class="container mt-5 ">
+  <div style="max-width: 700px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color:rgb(236, 237, 240); color:rgb(0, 0, 0);">
+      <h1 class="text-center ">¡Selecciona tus gustos para encontrar hacer un verdadero roommatch!</h1>
+      <h1 class="text-center ">Tambien puedes seleccionar los comportamientos con los que mas te identificas</h1>
+  </div>
+</div>
+
+<%= form_with url: update_user_preferences_detail_compatibilities_path, method: :patch do %>
+  <div class="organization">
+    <div class="half">
+      <div>
+        <% @compatibilities.each do |c| %>
+          <div class="form-check form-check-inline">
+            <%= check_box_tag "compatibilities[]", c.id, current_user.compatibility_ids.include?(c.id), id: "option-#{c.title}", class: "compatibility-question" %>
+            <%= label_tag "option-#{c.title}", class: "m-2" do %>
+              <i class="<%= c.icon %>"></i> <%= c.title_spanish %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <%= submit_tag "Guardar preferencias", class: "btn-detail-compatibility" %>
+    </div>
+  </div>
+<% end %>
