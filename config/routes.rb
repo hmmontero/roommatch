@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   resources :detail_compatibilities, only: %i[create show new edit update]
   resources :users, only: :show
 
+  get 'profile', to: 'users#show_profile', as: :user_profile
+  get 'profile/edit', to: 'users#edit_profile', as: :edit_user_profile
+  patch 'profile', to: 'users#update_profile'
+
+
   patch "bookings/:id", to: "bookings#accept", as: :accept
   patch "bookings/:id", to: "bookings#decline", as: :decline
 end
