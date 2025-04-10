@@ -75,3 +75,8 @@ group :test do
 end
 
 gem "solid_cable"
+<<<<<<< HEAD
+=======
+
+gem 'faker', '~> 3.2'
+>>>>>>> master
