@@ -14,7 +14,12 @@ Rails.application.routes.draw do
   end
 
 
-  resources :detail_compatibilities, only: %i[create show new edit update]
+  resources :detail_compatibilities, only: %i[create show new edit update] do
+    collection do
+      patch :update_user_preferences
+    end
+  end
+
   resources :users, only: :show
 
   patch "bookings/:id", to: "bookings#accept", as: :accept
