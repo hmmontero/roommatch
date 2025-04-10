@@ -40,6 +40,7 @@ label[for^="option-"] i {
   max-width: 1000px; /* Limita el ancho para mantenerlo manejable */
   margin: 0 auto; /* Centra el contenedor horizontalmente */
   padding: 20px;
+  min-width: 600px;
 }
 
 
@@ -92,3 +93,4 @@ label[for^="option-"] i {
   text-align: center;
   font-size: 1.7rem;
 }
+

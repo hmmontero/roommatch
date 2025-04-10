@@ -8,7 +8,7 @@ class DetailCompatibilitiesController < ApplicationController
   end
 
   def create
-    @compatibilities = params[:compatibilities]
+    @compatibilities = params[:compatibilities] || 0
     if @compatibilities.size < 10
       @compatibilities = Compatibility.all
       flash.now[:alert] = "Debes seleccionar al menos 10 compatibilidades."
