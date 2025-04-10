@@ -75,4 +75,5 @@ group :test do
 end
 
 gem "solid_cable"
+gem 'date_validator'
 

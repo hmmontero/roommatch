@@ -7,5 +7,6 @@ class Place < ApplicationRecord
   validates :address, presence: true
   validates :available_rooms, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
-
+  validates :available_date, presence: true, date: { after_or_equal_to: Date.today }
 end
+
