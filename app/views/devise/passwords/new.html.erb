@@ -1,18 +1,29 @@
-<h2>Forgot your password?</h2>
+<div class="container-fluid p-0" style="background: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+  <div class="col-md-6 col-lg-4">
+    <div class="card devise-card" style="background: rgba(255,255,255,0.95); border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); backdrop-filter: blur(8px);">
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
+      <div class="card-header text-center" style="background-color: #1EC677; padding: 1.5rem; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+        <h2 class="text-white mb-0" style="font-weight: 700;">Recupera tu contraseña</h2>
+        <small style="font-size: 0.9rem; color: #0d4029;">Ingresa tu correo para recibir instrucciones</small>
+      </div>
+      <div class="card-body" style="padding: 2rem;">
+        <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name)) do |f| %>
+          <%= f.error_notification %>
+          <div class="form-group">
+            <%= f.input :email,
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "email", class: "form-control", placeholder: "Correo electrónico" },
+                        label_html: { class: "sr-only" } %>
+          </div>
+          <div class="form-group">
+            <%= f.button :submit, "Enviar instrucciones", class: "btn btn-block", style: "background: #1EC677; border: none; color: #fff; font-weight: bold; padding: 0.5rem 0.75rem;" %>
+          </div>
+        <% end %>
+        <div class="text-center mt-3">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
