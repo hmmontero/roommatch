@@ -9,4 +9,3 @@ class Place < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :available_date, presence: true, date: { after_or_equal_to: Date.today }
 end
-
