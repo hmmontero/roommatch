@@ -21,15 +21,28 @@ class DetailCompatibilitiesController < ApplicationController
     end
   end
 
-  # def edit
-  #   @detail_compatibility = DetailCompatibility.find(params[:id])
-  # end
+  def edit
+    @detail_compatibility = DetailCompatibility.find(params[:id])
+    @compatibilities = Compatibility.all
+  end
 
-  # def update
-  #   @detail_compatibility = DetailCompatibility.find(params[:id])
-  #   if @detail_compatibility.update(product_params)
-  #     redirect_to user_path(@user), notice: "Updated!"
-  #   else
-  #     render :edit, status: :unprocessable_entity
-  #   end
+  def update_user_preferences
+    selected_ids = params[:compatibilities] || []
+
+    if selected_ids.size < 10
+      flash.now[:alert] = "Debes seleccionar al menos 10 compatibilidades."
+      @compatibilities = Compatibility.all
+      render :edit, status: :unprocessable_entity
+    else
+      current_user.compatibility_ids = selected_ids
+      flash[:notice] = "Preferencias actualizadas correctamente."
+      redirect_to root_path
+    end
+  end
+
+  private
+
+  def detail_compatibility_params
+    params.require(:detail_compatibility).permit(:compatibility_id, :user_id)
+  end
 end

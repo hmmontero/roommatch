@@ -46,7 +46,13 @@
     <%= form.date_field :available_date %>
   </div>
 
+  <div class="mt-2 mb-3" >
+    <label>Subir foto</label>
+    <%= form.file_field :photo, direct_upload: true %>
+  </div>
+
   <div>
     <%= form.submit 'Guardar', class: "btn-primary" %>
   </div>
+
 <% end %>
