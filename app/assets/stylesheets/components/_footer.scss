@@ -1,15 +1,20 @@
 footer {
   background-color: #1EC677;
-  padding: 20px;
+  padding-top: 15px;
   text-align: center;
 }
 
 .footer-icons a {
   color: #292929;
-  font-size: 24px;
-  margin: 0 10px;
+  font-size: 20px;
+  margin: 0 7px;
 }
 
 .footer-icons a:hover {
   color: #ffffff;
+}
+
+.fa-heart {
+  color: rgb(0, 0, 0); /* Cambia el color del corazón a rojo */
+  font-size: 1em; /* Aumenta el tamaño del corazón */
 }
