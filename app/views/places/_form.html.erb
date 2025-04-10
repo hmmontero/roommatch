@@ -1,4 +1,5 @@
-<%= form_with(model: place, local: true) do |form| %>
+
+<%= form_with(model: place, local: true, class: "place-form") do |form| %>
   <% if place.errors.any? %>
     <div class="alert alert-danger">
       <h4><%= pluralize(place.errors.count, "error") %> impidieron guardar este lugar:</h4>
@@ -46,6 +47,6 @@
   </div>
 
   <div>
-    <%= form.submit 'Guardar' %>
+    <%= form.submit 'Guardar', class: "btn-primary" %>
   </div>
 <% end %>

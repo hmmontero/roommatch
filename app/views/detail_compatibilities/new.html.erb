@@ -1,16 +1,17 @@
 <%# la encontramos en #http://127.0.0.1:3000/detail_compatibilities/new %>
 <div class="container mt-5 ">
   <div style="max-width: 700px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color:rgb(236, 237, 240); color:rgb(0, 0, 0);">
-      <h1 class="text-center fw-bold">¡Selecciona tus gustos para encontrar hacer un verdadero roommatch!</h1>
+      <h1 class="text-center ">¡Selecciona tus gustos para encontrar hacer un verdadero roommatch!</h1>
+      <h1 class="text-center ">Tambien puedes seleccionar los comportamientos con los que mas te identificas</h1>
   </div>
 </div>
 
 
 <%= form_with url: detail_compatibilities_path, method: :post do %>
   <div class="organization">
-    <div class="">
+    <div class="half">
       <div class="">
-        <% @detail_compatibilities.each do |c| %>
+        <% @compatibilities.each do |c| %>
           <div class="form-check form-check-inline">
             <%= check_box_tag "compatibilities[]", c.id, false, id: "option-#{c.title}", class: "compatibility-question" %>
             <%= label_tag "option-#{c.title}", class: "m-2" do %>

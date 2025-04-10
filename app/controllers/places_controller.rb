@@ -4,6 +4,10 @@ class PlacesController < ApplicationController
 
   def index
     @places = Place.all.order(created_at: :desc)
+    if user_signed_in?
+      compatible_users = User.find_compatible_users(current_user).select { |match| match[:match_percentage] >= 60 }.map { |match| match[:user] }
+      @places = compatible_users.flat_map(&:places)
+    end
   end
 
   def show
