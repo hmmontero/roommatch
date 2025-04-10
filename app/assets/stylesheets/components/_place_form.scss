@@ -1,6 +1,6 @@
 .place-form {
   max-width: 600px;
-  margin: 20px auto;
+  margin: 30px auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -55,7 +55,7 @@
 
 .titulo-place{
   text-align: center;
-
+  margin-top: 30px;
 }
 
 .button_place{
@@ -66,19 +66,19 @@
   font-size: 1.2em;
   width: 200px;
   text-align: center;
-  background-color: #007bff; /* Color de fondo (azul Bootstrap) */
-  color: white; /* Color del texto (blanco) */
-  border: none; /* Elimina el borde predeterminado */
-  border-radius: 5px; /* Añade bordes redondeados (opcional) */
-  cursor: pointer; /* Cambia el cursor a una mano (opcional) */
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   text-decoration: none
 }
 
 .button_place:hover {
-  background-color: #0056b3; /* Un azul más oscuro al pasar el mouse */
+  background-color: #0056b3;
 }
 
 /* Estilo al hacer click (opcional) */
 .button_place:active {
-  background-color: #004085; /* Un azul más oscuro al hacer click */
+  background-color: #004085;
 }

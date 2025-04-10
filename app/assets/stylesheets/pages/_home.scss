@@ -47,14 +47,14 @@
 .texto-card{
   margin:0;
   font-size: 0.9rem;
-  color:gray;
+  color:#0d4029;
 }
 
 .title-card{
   margin-bottom: 0;
   padding-top: 5px;
   font-weight: 600;
-  color: rgb(156, 211, 5);
+  color: #1EC677;
 }
 
 .price{
@@ -95,13 +95,19 @@
 
 .banner-text p {
   font-size: 1.2em;
-  color:rgb(142, 142, 142);
+  color:#0d4029;
 }
 
 .title-FAQ{
   text-align: center;
   margin-block: 30px;
   font-size: 1.5rem;
+}
+
+
+.acordeon-container {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 
