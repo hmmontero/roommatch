@@ -1,4 +1,10 @@
 class BookingsController < ApplicationController
+
+  def show
+    @booking = Booking.find(params[:id])
+    @message = Message.new
+  end
+
   def create
     @place = Place.find(params[:place_id])
     @booking = Booking.new
