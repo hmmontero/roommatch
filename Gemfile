@@ -76,3 +76,4 @@ end
 
 gem "solid_cable"
 
+gem 'faker', '~> 3.2'
