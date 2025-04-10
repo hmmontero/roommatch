@@ -20,6 +20,16 @@
                 <%= place.available_rooms %> habitaciones disponibles
               </small>
             </p>
+            <p class="card-text">
+              <strong>Dueño:</strong> <%= place.user.first_name %> <%= place.user.last_name %>
+            </p>
+
+            <% if user_signed_in? && current_user != place.user %>
+              <p class="card-text">
+                <strong>Compatibilidad:</strong>
+                <%= current_user.compatibility_percentage_with(place.user) %>%
+              </p>
+            <% end %>
           </div>
 
           <div class="card-footer bg-white">
@@ -47,8 +57,18 @@
               <p><strong>Habitaciones disponibles:</strong> <%= place.available_rooms %></p>
               <p><strong>Fecha disponible:</strong> <%= l(place.available_date) %></p>
               <p><strong>Descripción:</strong></p>
-              <%= simple_form_for([place, Booking.new]) do |f|%>
-                <%= f.submit value: "Match" %>
+              <p><%= place.description %></p>
+
+              <% if user_signed_in? && current_user != place.user %>
+                <p><strong>Compatibilidad:</strong> <%= current_user.compatibility_percentage_with(place.user) %>%</p>
+              <% end %>
+
+              <% if user_signed_in? %>
+                <%= simple_form_for([place, Booking.new]) do |f| %>
+                  <%= f.submit "Match", class: "btn btn-primary mt-3" %>
+                <% end %>
+              <% else %>
+                <%= link_to 'Inicia sesión para reservar', new_user_session_path, class: "btn btn-secondary mt-3" %>
               <% end %>
             </div>
             <div class="modal-footer">

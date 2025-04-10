@@ -5,7 +5,7 @@ class PlacesController < ApplicationController
   def index
     @places = Place.all.order(created_at: :desc)
     if user_signed_in?
-      compatible_users = User.find_compatible_users(current_user).select { |match| match[:match_percentage] >= 60 }.map { |match| match[:user] }
+      compatible_users = User.find_compatible_users(current_user).select { |match| match[:match_percentage] >= 58 }.map { |match| match[:user] }
       @places = compatible_users.flat_map(&:places)
     end
   end
@@ -53,8 +53,6 @@ class PlacesController < ApplicationController
 
   def place_params
     params.require(:place).permit(:address, :available_rooms, :price, :title,
-                                 :description, :place_typetype, :available_date,
-                                 :latitude, :longitude)
+                                 :description, :place_type, :available_date, :photo)
   end
-
 end
