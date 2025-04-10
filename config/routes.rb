@@ -19,4 +19,8 @@ Rails.application.routes.draw do
 
   patch "bookings/:id", to: "bookings#accept", as: :accept
   patch "bookings/:id", to: "bookings#decline", as: :decline
+
+  resources :bookings, only: [:show] do
+    resources :messages, only: [:create]
+  end
 end
