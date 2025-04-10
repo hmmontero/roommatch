@@ -8,7 +8,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+DetailCompatibility.destroy_all 
 Compatibility.destroy_all
+User.destroy_all
+Place.destroy_all
+Booking.destroy_all
 
 Compatibility.create(title: "mascotas", title_spanish: "Mascotas", icon: "fa-solid fa-dog")
 Compatibility.create(title: "silencio", title_spanish: "Silencio", icon: "fa-solid fa-volume-mute")
