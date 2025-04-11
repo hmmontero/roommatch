@@ -5,7 +5,7 @@
 
   <div id="messages" class="messages">
     <% @booking.messages.each do |message| %>
-      <%= render "messages/message", message: message %>
+      <%= render "messages/message", message: message, user: current_user %>
     <% end %>
   </div>
 
