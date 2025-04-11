@@ -36,7 +36,7 @@ class DetailCompatibilitiesController < ApplicationController
     else
       current_user.compatibility_ids = selected_ids
       flash[:notice] = "Preferencias actualizadas correctamente."
-      redirect_to root_path
+      redirect_to places_path
     end
   end
 
