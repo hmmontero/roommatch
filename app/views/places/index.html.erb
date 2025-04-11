@@ -1,11 +1,68 @@
 <div class="places-container-component">
   <div class="container">
-    <div class="places-header-section d-flex justify-content-between align-items-center">
-      <h1 class="places-main-title">Lugares Disponibles</h1>
-      <% if user_signed_in? %>
-        <%= link_to 'Publicar Nuevo Lugar', new_place_path, class: 'btn btn-lg rounded-pill new-place-btn' %>
+    <div class="search-section mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <h1 class="places-main-title mb-3 mb-3 md-0 text-center w-100">Lugares Disponibles</h1>
+        <% if user_signed_in? %>
+          <div class="d-flex flex-column flex-md-row gap-3 mx-auto mt-3 mt-md-0 mb-3" >
+            <%= link_to new_place_path, class: 'btn btn-lg rounded-pill new-place-btn btn-success-custom d-flex align-items-center' do %>
+              <i class="fas fa-plus-circle me-2"></i> Publicar Nuevo Lugar
+            <% end %>
+
+            <% detail_compatibility = current_user.detail_compatibilities.first %>
+            <% if detail_compatibility %>
+              <%= link_to edit_detail_compatibility_path(detail_compatibility), class: 'btn btn-lg rounded-pill new-place-btn btn-success-custom d-flex align-items-center' do %>
+                <i class="fas fa-edit me-2"></i> Actualizar Preferencias
+              <% end %>
+            <% else %>
+              <%= link_to new_detail_compatibility_path, class: 'btn btn-lg rounded-pill new-place-btn btn-success-custom d-flex align-items-center' do %>
+                <i class="fas fa-edit me-2"></i> Crear Preferencias
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <%= form_with url: places_path, method: :get, class: "search-form row g-3 align-items-end p-4 rounded-4 shadow-sm mx-0 bg-white" do %>
+        <div class="col-lg-5 col-md-12 position-relative">
+          <label for="query" class="form-label text-muted fw-semibold">
+            <i class="fas fa-search me-1"></i> Buscar
+          </label>
+          <div class="input-icon">
+            <%= text_field_tag :query, params[:query], class: "form-control ps-4", placeholder: "Ej: habitación en Lima" %>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <label for="place_type" class="form-label text-muted fw-semibold">
+            <i class="fas fa-home me-1"></i> Tipo de vivienda
+          </label>
+          <div class="input-icon">
+            <%= select_tag :place_type,
+                options_for_select([["Todos", ""], "Departamento", "Casa", "Habitación", "Loft", "Estudio"], params[:place_type]),
+                class: "form-select ps-4" %>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <label for="city" class="form-label text-muted fw-semibold">
+            <i class="fas fa-map-marker-alt me-1"></i> Ciudad
+          </label>
+          <div class="input-icon">
+            <%= select_tag :city,
+                options_for_select([["Todas", ""], "Buenos Aires", "Ciudad de México", "Bogotá", "Lima", "Santiago", "Montevideo"], params[:city]),
+                class: "form-select ps-4" %>
+          </div>
+        </div>
+
+        <div class="col-lg-1 col-md-12 d-grid">
+          <%= submit_tag "Buscar", name: "", class: "btn btn-success-custom d-flex align-items-center justify-content-center" do %>
+            <i class="fas fa-search me-2 d-none d-md-inline"></i> Buscar
+          <% end %>
+        </div>
       <% end %>
     </div>
+
 
     <div class="row g-4">
       <% @places.each do |place| %>
@@ -67,7 +124,6 @@
           </article>
         </div>
 
-        <!-- Modal -->
         <div class="modal fade place-card-modal" id="placeModal-<%= place.id %>" tabindex="-1" aria-labelledby="placeModalLabel-<%= place.id %>" aria-hidden="true">
           <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
