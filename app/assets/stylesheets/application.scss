@@ -13,7 +13,10 @@
 @import "pages/check_box_compatibility_questions";
 @import "users";
 @import "devise";
-
+@import "components/places-cards";
+@import "components/btn-new-place";
+@import "components/notification-modal";
+@import "components/btn-chat";
 
 body {
   display: flex;
