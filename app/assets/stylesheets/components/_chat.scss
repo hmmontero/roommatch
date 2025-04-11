@@ -1,14 +1,17 @@
 .chat {
-  background: white;
-  margin-top: 9px;
-  height: calc(100vh - 75px);
+  background: rgb(255, 255, 255);
+  margin-top: 30px;
+  height: calc(100vh - 250px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
+  border-radius: 10px;
+  max-width: 650px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
   h1 {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #89f5b9;
     margin-bottom: 0;
     padding: 1rem;
   }
@@ -17,6 +20,54 @@
     height: 100%;
     overflow: auto;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Espacio entre mensajes */
+  }
+
+  .message {
+    max-width: 70%; /* Limita el ancho para que no ocupe todo el contenedor */
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background-color: #f0f0f0; /* Color por defecto, se sobrescribe en las clases específicas */
+    word-wrap: break-word; /* Evita desbordamiento de texto largo */
+
+    small {
+      display: block;
+      margin-bottom: 0.2rem;
+      color: #555;
+    }
+
+    strong {
+      color: #2c3e50; /* Color oscuro para el nombre */
+      font-size: 1rem; /* Tamaño de fuente un poco más grande */
+      font-weight: 700; /* Peso más fuerte */
+      text-transform: capitalize; /* Opcional: primera letra en mayúscula */
+      background-color: rgba(137, 245, 185, 0.2); /* Fondo sutil basado en #89f5b9 */
+      padding: 0.1rem 0.3rem; /* Pequeño padding para el fondo */
+      border-radius: 3px; /* Bordes redondeados para el fondo */
+    }
+
+    i {
+      font-size: 0.85rem; /* Fecha más pequeña */
+      color: #777; /* Color más claro para la fecha */
+    }
+
+
+    p {
+      margin: 0; /* Elimina márgenes por defecto del párrafo */
+    }
+  }
+
+  .message--sent {
+    background-color: #78eead; /* Color para mensajes enviados (basado en tu borde) */
+    align-self: flex-end; /* Alinea a la derecha */
+    text-align: right; /* Opcional: alinea el texto a la derecha */
+  }
+
+  .message--received {
+    background-color: #e6e6e6; /* Color para mensajes recibidos */
+    align-self: flex-start; /* Alinea a la izquierda */
   }
 
   #new_message {
@@ -27,4 +78,17 @@
       margin-bottom: 0;
     }
   }
+}
+
+.button-chat-new{
+  background-color: #15e484 ;
+  border: none;
+  margin-bottom: 16px;
+  margin-left: 5px;
+  width: 20%;
+  border-radius: 10px;
+}
+
+.title-chat-new{
+  font-size: 1.2rem;
 }
