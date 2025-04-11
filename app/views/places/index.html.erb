@@ -1,83 +1,139 @@
-<div class="container mt-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Lugares Disponibles</h1>
-    <% if user_signed_in? %>
-      <%= link_to 'Publicar Nuevo Lugar', new_place_path, class: 'btn btn-primary' %>
-    <% end %>
-  </div>
+<div class="places-container-component">
+  <div class="container">
+    <div class="places-header-section d-flex justify-content-between align-items-center">
+      <h1 class="places-main-title">Lugares Disponibles</h1>
+      <% if user_signed_in? %>
+        <%= link_to 'Publicar Nuevo Lugar', new_place_path, class: 'btn btn-lg rounded-pill new-place-btn' %>
+      <% end %>
+    </div>
 
-  <div class="row">
-    <% @places.each do |place| %>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title"><%= place.title %></h5>
-            <p class="card-text text-muted"><%= place.address %></p>
-            <p class="card-text"><strong>Tipo:</strong> <%= place.place_type %></p>
-            <p class="card-text"><%= number_to_currency(place.price) %> / mes</p>
-            <p class="card-text">
-              <small class="text-muted">
-                <%= place.available_rooms %> habitaciones disponibles
-              </small>
-            </p>
-            <p class="card-text">
-              <strong>Dueño:</strong> <%= place.user.first_name %> <%= place.user.last_name %>
-            </p>
-
-            <% if user_signed_in? && current_user != place.user %>
-              <p class="card-text">
-                <strong>Compatibilidad:</strong>
-                <%= current_user.compatibility_percentage_with(place.user) %>%
-              </p>
-            <% end %>
-          </div>
-
-          <div class="card-footer bg-white">
-            <button type="button"
-                    class="btn btn-outline-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#placeModal-<%= place.id %>">
-              Ver Detalles
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="placeModal-<%= place.id %>" tabindex="-1" aria-labelledby="placeModalLabel-<%= place.id %>" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="placeModalLabel-<%= place.id %>"><%= place.title %></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <div class="modal-body">
-              <p><strong>Dirección:</strong> <%= place.address %></p>
-              <p><strong>Tipo:</strong> <%= place.place_type %></p>
-              <p><strong>Precio:</strong> <%= number_to_currency(place.price) %> / mes</p>
-              <p><strong>Habitaciones disponibles:</strong> <%= place.available_rooms %></p>
-              <p><strong>Fecha disponible:</strong> <%= l(place.available_date) %></p>
-              <p><strong>Descripción:</strong></p>
-              <p><%= place.description %></p>
+    <div class="row g-4">
+      <% @places.each do |place| %>
+        <div class="col-md-4">
+          <article class="place-card-item">
+            <div class="place-card-header-image rounded-top">
+              <svg class="place-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+              </svg>
+              <span class="place-card-price-badge"><%= number_to_currency(place.price) %>/mes</span>
 
               <% if user_signed_in? && current_user != place.user %>
-                <p><strong>Compatibilidad:</strong> <%= current_user.compatibility_percentage_with(place.user) %>%</p>
-              <% end %>
-
-              <% if user_signed_in? %>
-                <%= simple_form_for([place, Booking.new]) do |f| %>
-                  <%= f.submit "Match", class: "btn btn-primary mt-3" %>
-                <% end %>
-              <% else %>
-                <%= link_to 'Inicia sesión para reservar', new_user_session_path, class: "btn btn-secondary mt-3" %>
+                <div class="place-card-compatibility-badge">
+                  <%= current_user.compatibility_percentage_with(place.user) %>%
+                </div>
               <% end %>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+            <div class="place-card-body">
+              <div class="place-card-title-wrapper">
+                <h3 class="place-card-title"><%= place.title %></h3>
+                <div class="place-card-actions">
+                  <button type="button" class="place-card-action-btn" data-bs-toggle="modal" data-bs-target="#placeModal-<%= place.id %>">
+                    <svg class="place-card-action-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="M12 16v-4M12 8h.01"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <p class="place-card-address">
+                <svg class="place-card-address-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                  <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                  <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>
+                <%= place.address %>
+              </p>
+
+              <div class="place-card-tags-container">
+                <span class="place-card-tag tag-type">
+                  <%= place.place_type %>
+                </span>
+                <span class="place-card-tag tag-rooms">
+                  <%= place.available_rooms %> hab. disponibles
+                </span>
+              </div>
+
+              <div class="place-card-owner">
+                <small>Publicado por: <%= place.user.first_name %> <%= place.user.last_name %></small>
+              </div>
+
+              <div class="place-card-footer">
+                <button type="button" class="place-card-details-btn" data-bs-toggle="modal" data-bs-target="#placeModal-<%= place.id %>">
+                  Ver Detalles
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade place-card-modal" id="placeModal-<%= place.id %>" tabindex="-1" aria-labelledby="placeModalLabel-<%= place.id %>" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+              <div class="modal-header border-0">
+                <h3 class="modal-title place-modal-title" id="placeModalLabel-<%= place.id %>"><%= place.title %></h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body py-0">
+                <div class="place-modal-icon-container text-center my-4">
+                  <svg class="place-modal-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+                  </svg>
+                </div>
+
+                <div class="place-modal-details">
+                  <div class="detail-item mb-3">
+                    <span class="detail-label">Dirección:</span>
+                    <span class="detail-value"><%= place.address %></span>
+                  </div>
+
+                  <div class="detail-item mb-3">
+                    <span class="detail-label">Tipo:</span>
+                    <span class="detail-value"><%= place.place_type %></span>
+                  </div>
+
+                  <div class="detail-item mb-3">
+                    <span class="detail-label">Precio:</span>
+                    <span class="detail-value"><%= number_to_currency(place.price) %> / mes</span>
+                  </div>
+
+                  <div class="detail-item mb-3">
+                    <span class="detail-label">Habitaciones:</span>
+                    <span class="detail-value"><%= place.available_rooms %> disponibles</span>
+                  </div>
+
+                  <div class="detail-item mb-4">
+                    <span class="detail-label">Fecha disponible:</span>
+                    <span class="detail-value"><%= l(place.available_date) %></span>
+                  </div>
+
+                  <% if user_signed_in? && current_user != place.user %>
+                    <div class="detail-item mb-3">
+                      <span class="detail-label">Compatibilidad:</span>
+                      <span class="detail-value compatibility-value">
+                        <%= current_user.compatibility_percentage_with(place.user) %>%
+                      </span>
+                    </div>
+                  <% end %>
+
+                  <h6 class="fw-bold mb-3">Descripción</h6>
+                  <p class="text-muted"><%= place.description %></p>
+                </div>
+              </div>
+              <div class="modal-footer border-0">
+                <% if user_signed_in? %>
+                  <%= simple_form_for([place, Booking.new], html: { class: 'w-100' }) do |f| %>
+                    <%= f.button :submit, "Reservar Ahora", class: 'place-modal-book-btn w-100 py-3' %>
+                  <% end %>
+                <% else %>
+                  <%= link_to 'Inicia sesión para reservar', new_user_session_path, class: 'btn btn-secondary w-100 py-3' %>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
-<% console %>

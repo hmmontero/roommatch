@@ -1,0 +1,190 @@
+/* Estilos personalizados para el modal de notificaciones */
+.custom-modal-dialog {
+  max-width: 500px;
+}
+
+.custom-modal-content {
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.custom-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: none;
+  background-color: white;
+}
+
+.logo-circle {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: rgba(#1EC677, 0.1);
+}
+
+.btn-close-custom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 6px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba(#1EC677, 0.1);
+  }
+}
+
+.custom-modal-body {
+  padding: 0 1.5rem 1rem;
+
+  .modal-title-custom {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0D4029;
+    margin-bottom: 0.25rem;
+  }
+
+  .modal-description {
+    color: #6a6b76;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+.requests-container {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background-color: rgba(#1EC677, 0.05);
+  margin-bottom: 0.75rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.request-info {
+  .request-user {
+    display: block;
+    font-weight: 500;
+    color: #0D4029;
+  }
+
+  .request-date {
+    font-size: 0.75rem;
+    color: #6a6b76;
+  }
+}
+
+.request-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  &.btn-accept {
+    background-color: rgba(#1EC677, 0.1);
+    color: #0D4029;
+
+    &:hover {
+      background-color: rgba(#1EC677, 0.2);
+    }
+  }
+
+  &.btn-decline {
+    background-color: rgba(#FF6B6B, 0.1);
+    color: #D32F2F;
+
+    &:hover {
+      background-color: rgba(#FF6B6B, 0.2);
+    }
+  }
+}
+
+.no-requests {
+  text-align: center;
+  padding: 2rem 0;
+  color: #6a6b76;
+
+  svg {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.custom-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 1.5rem 1.5rem;
+  border-top: none;
+  gap: 0.75rem;
+}
+
+.btn-secondary-custom,
+.btn-primary-custom {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary-custom {
+  background-color: transparent;
+  border: 1px solid #e5e5e5;
+  color: #6a6b76;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+.btn-primary-custom {
+  background-color: #1EC677;
+  border: 1px solid #1EC677;
+  color: white;
+
+  &:hover {
+    background-color: darken(#1EC677, 5%);
+    border-color: darken(#1EC677, 5%);
+  }
+}

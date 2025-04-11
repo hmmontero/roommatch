@@ -10,15 +10,15 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
-
         <% if user_signed_in? %>
           <li class="nav-item active">
             <%= link_to "Home", "#", class: "nav-link" %>
           </li>
-          <li class="nav-item">
-          <% my_pending_bookings = Booking.where(place_id: current_user.places.map(&:id)).where(status: "pending") %>
-          <% my_bookings = Booking.where(id: current_user.places.map(&:id)) %>
 
+          <% my_pending_bookings = Booking.where(place_id: current_user.places.map(&:id)).where(status: "pending") %>
+          <% my_accepted_bookings = Booking.where(status: "approved").where("user_id = ? OR place_id IN (?)", current_user.id, current_user.places.ids) %>
+
+          <li class="nav-item">
             <!-- Button trigger modal -->
             <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
               <%= "Mis solicitudes (#{my_pending_bookings.size})" %>
@@ -26,39 +26,93 @@
 
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Solicitudes por revisar</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <% if my_pending_bookings.any? %>
-                    <% my_pending_bookings.each do |booking| %>
-                      <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span><%= booking.user.email %></span>
-                        <div class="d-flex">
-                          <%= button_to "Aceptar", accept_path(booking), method: :patch, class: "btn btn-outline-success btn-sm me-2" %>
-                          <%= button_to "Rechazar", decline_path(booking), method: :patch, class: "btn btn-outline-danger btn-sm" %>
+              <div class="modal-dialog modal-dialog-centered custom-modal-dialog">
+                <div class="modal-content custom-modal-content">
+                  <div class="modal-header custom-modal-header">
+                    <div class="modal-logo">
+                      <span class="logo-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="#1EC677">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        </svg>
+                      </span>
+                    </div>
+                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#6a6b76">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="modal-body custom-modal-body">
+                    <p class="modal-title-custom">Solicitudes por revisar</p>
+                    <p class="modal-description">Tienes <%= my_pending_bookings.count %> solicitud(es) pendiente(s)</p>
+
+                    <% if my_pending_bookings.any? %>
+                      <div class="requests-container">
+                        <% my_pending_bookings.each do |booking| %>
+                          <div class="request-item">
+                            <div class="request-info">
+                              <span class="request-user"><%= booking.user.email %></span>
+                              <span class="request-date"><%= booking.created_at.strftime("%d/%m/%Y") %></span>
+                            </div>
+                            <div class="request-actions">
+                              <%= button_to accept_path(booking), method: :patch, class: "btn-action btn-accept" do %>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                                </svg>
+                                Aceptar
+                              <% end %>
+                              <%= button_to decline_path(booking), method: :patch, class: "btn-action btn-decline" do %>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                                Rechazar
+                              <% end %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    <% else %>
+                      <div class="no-requests">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#1EC677" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        <p>No hay solicitudes pendientes</p>
+                      </div>
+                    <% end %>
+
+                    <% if my_accepted_bookings.any? %>
+                      <div class="accepted-requests mt-4">
+                        <p class="modal-title-custom">Solicitudes aceptadas</p>
+                        <div class="requests-container">
+                          <% my_accepted_bookings.each do |booking| %>
+                            <div class="request-item">
+                              <div class="request-info">
+                                <span class="request-user"><%= booking.user.email %></span>
+                                <span class="request-date"><%= booking.updated_at.strftime("%d/%m/%Y") %></span>
+                              </div>
+                              <div class="request-actions">
+                                <%= link_to "Ir al chat", booking_path(booking), class: "btn-action btn-chat" %>
+                              </div>
+                            </div>
+                          <% end %>
                         </div>
                       </div>
                     <% end %>
-                  <% else %>
-                    <p class="text-center">No hay solicitudes pendientes.</p>
-                  <% end %>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-primary">Entendido</button>
+                  </div>
+                  <div class="modal-footer custom-modal-footer">
+                    <button type="button" class="btn-secondary-custom" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn-primary-custom">Entendido</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
           </li>
+
           <li class="nav-item dropdown">
-          <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
-          </a>
+            <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
+            </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Mi perfil", user_profile_path, class: "dropdown-item" %>
               <%= link_to "Another action", "#", class: "dropdown-item" %>
