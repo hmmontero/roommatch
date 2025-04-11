@@ -20,11 +20,51 @@
           <% my_pending_bookings = Booking.where(place_id: current_user.places.map(&:id)).where(status: "pending") %>
           <% my_accepted_bookings = Booking.where(status: "approved").where("user_id = ? OR place_id IN (?)", current_user.id, current_user.places.ids) %>
 
+
+     <li class="nav-item dropdown">
+  <button class="nav-link position-relative dropdown-toggle" type="button" id="chatDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fas fa-comments"></i>
+    <% last_messages = current_user.messages.order(created_at: :desc).limit(5) %>
+    <% if last_messages.any? %>
+      <span id="chat-badge" class="notification-badge"><%= last_messages.count %></span>
+    <% end %>
+  </button>
+
+  <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="chatDropdown" style="min-width: 300px; max-height: 400px; overflow-y: auto;">
+    <% if last_messages.any? %>
+      <% last_messages.each do |message| %>
+        <li class="mb-2 border-bottom pb-2">
+          <div id="message-<%= message.id %>">
+            <small class="text-muted d-block mb-1">
+              <strong class="text-dark"><%= message.user.first_name %></strong>
+              · <i><%= message.created_at.strftime("%a %b %e, %l:%M %p") %></i>
+            </small>
+            <p class="mb-0"><%= truncate(message.content, length: 100) %></p>
+          </div>
+        </li>
+      <% end %>
+
+      <% last_message = last_messages.first %>
+      <li>
+        <%= link_to "Ver mensajes", booking_path(last_message.booking), class: "dropdown-item text-center fw-bold", onclick: "clearChatBadge()" %>
+      </li>
+    <% else %>
+      <li>
+        <p class="dropdown-item text-center text-muted">No hay mensajes</p>
+      </li>
+    <% end %>
+  </ul>
+</li>
+
+
           <li class="nav-item">
-            <!-- Button trigger modal -->
-            <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-              <i class="fas fa-user-plus"></i><%= "  (#{my_pending_bookings.size})" %>
+            <button type="button" class="nav-link position-relative" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <i class="fas fa-user-plus"></i>
+              <% if my_pending_bookings.size > 0 %>
+                <span class="notification-badge"><%= my_pending_bookings.size %></span>
+              <% end %>
             </button>
+          </li>
 
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
