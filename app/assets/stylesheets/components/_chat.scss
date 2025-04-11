@@ -60,7 +60,7 @@
   }
 
   .message--sent {
-    background-color: #b2f5d0; /* Color para mensajes enviados (basado en tu borde) */
+    background-color: #78eead; /* Color para mensajes enviados (basado en tu borde) */
     align-self: flex-end; /* Alinea a la derecha */
     text-align: right; /* Opcional: alinea el texto a la derecha */
   }
@@ -78,4 +78,17 @@
       margin-bottom: 0;
     }
   }
+}
+
+.button-chat-new{
+  background-color: #15e484 ;
+  border: none;
+  margin-bottom: 16px;
+  margin-left: 5px;
+  width: 20%;
+  border-radius: 10px;
+}
+
+.title-chat-new{
+  font-size: 1.2rem;
 }
