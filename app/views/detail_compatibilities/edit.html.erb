@@ -1,9 +1,8 @@
 
 <div class="container mt-5 ">
-  <div style="max-width: 700px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color:rgb(236, 237, 240); color:rgb(0, 0, 0);">
-      <h1 class="text-center ">¡Selecciona tus gustos para encontrar hacer un verdadero roommatch!</h1>
-      <h1 class="text-center ">Tambien puedes seleccionar los comportamientos con los que mas te identificas</h1>
-  </div>
+
+      <h1 class="titulo_compatibility">Selecciona tus gustos para encontrar tu Roomatch ideal <i class="fa-solid fa-rocket"></i></h1>
+
 </div>
 
 <%= form_with url: update_user_preferences_detail_compatibilities_path, method: :patch do %>
@@ -21,8 +20,9 @@
       </div>
     </div>
 
-    <div class="mt-3">
+
+  </div>
+  <div class="boton-save">
       <%= submit_tag "Guardar preferencias", class: "btn-detail-compatibility" %>
     </div>
-  </div>
 <% end %>
