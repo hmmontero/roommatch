@@ -1,0 +1,263 @@
+$places-card-primary: #1EC677;
+$places-card-primary-dark: #0D4029;
+$places-card-bg: #FFFFFF;
+$places-card-text: #2D3748;
+$places-card-text-light: #718096;
+
+.places-container-component {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  .places-header-section {
+    margin-bottom: 2rem;
+
+    .places-main-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: $places-card-primary-dark;
+    }
+  }
+}
+
+.place-card-item {
+  width: 100%;
+  transition: all 0.15s ease-in-out;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: $places-card-bg;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 2px solid transparent;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    border-color: $places-card-primary;
+  }
+}
+
+.place-card-header-image {
+  width: 100%;
+  height: 160px;
+  background-color: lighten($places-card-primary, 42%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .place-card-icon {
+    color: $places-card-primary;
+    opacity: 0.7;
+    width: 48px;
+    height: 48px;
+  }
+
+  .place-card-price-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba($places-card-bg, 0.95);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    color: $places-card-primary-dark;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+  }
+
+  .place-card-compatibility-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba($places-card-primary, 0.9);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+  }
+}
+
+.place-card-body {
+  padding: 1.5rem;
+
+  .place-card-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .place-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: $places-card-text;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .place-card-actions {
+    margin-left: 0.75rem;
+  }
+
+  .place-card-action-btn {
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: rgba($places-card-primary, 0.1);
+    }
+
+    .place-card-action-icon {
+      width: 20px;
+      height: 20px;
+      color: $places-card-primary-dark;
+    }
+  }
+
+  .place-card-address {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $places-card-text-light;
+
+    .place-card-address-icon {
+      color: $places-card-primary;
+    }
+  }
+
+  .place-card-tags-container {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .place-card-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    letter-spacing: -0.3px;
+
+    &.tag-type {
+      background-color: rgba($places-card-primary, 0.15);
+      color: darken($places-card-primary-dark, 5%);
+    }
+
+    &.tag-rooms {
+      background-color: rgba(lighten(#FF6B6B, 10%), 0.15);
+      color: darken(#FF6B6B, 20%);
+    }
+  }
+
+  .place-card-owner {
+    font-size: 0.8rem;
+    color: $places-card-text-light;
+    border-top: 1px solid lighten($places-card-primary, 35%);
+    padding-top: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .place-card-footer {
+    .place-card-details-btn {
+      width: 100%;
+      padding: 0.5rem;
+      border: 2px solid $places-card-primary;
+      background-color: transparent;
+      color: $places-card-primary-dark;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: rgba($places-card-primary, 0.1);
+      }
+    }
+  }
+}
+
+.place-card-modal {
+  .modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+
+    .place-modal-title {
+      color: $places-card-primary-dark;
+      font-weight: 700;
+    }
+  }
+
+  .place-modal-icon-container {
+    text-align: center;
+    margin: 1.5rem 0;
+    color: $places-card-primary;
+  }
+
+  .place-modal-icon {
+    width: 80px;
+    height: 80px;
+    opacity: 0.7;
+  }
+
+  .place-modal-details {
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px dashed lighten($places-card-primary, 30%);
+    }
+
+    .detail-label {
+      font-weight: 500;
+      color: $places-card-text-light;
+    }
+
+    .detail-value {
+      font-weight: 600;
+      color: $places-card-primary-dark;
+
+      &.compatibility-value {
+        color: $places-card-primary;
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .modal-footer {
+    border-top: none;
+    padding-top: 0;
+
+    .place-modal-book-btn {
+      background-color: $places-card-primary;
+      border: none;
+      font-weight: 600;
+      padding: 1rem;
+      border-radius: 50px;
+      width: 100%;
+      transition: all 0.2s ease;
+      color: white;
+
+      &:hover {
+        background-color: darken($places-card-primary, 8%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
