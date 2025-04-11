@@ -76,4 +76,6 @@ end
 
 gem "solid_cable"
 
+gem 'date_validator'
+
 gem 'faker', '~> 3.2'

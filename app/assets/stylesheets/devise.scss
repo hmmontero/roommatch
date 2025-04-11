@@ -1,3 +1,66 @@
+/* app/assets/stylesheets/pages/devise.scss */
+
+.devise-container {
+  background: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Si necesitás separar del navbar, se puede agregar padding-top aquí, por ejemplo:
+  padding-top: 80px; */
+}
+
 .devise-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
   width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+.devise-header {
+  background-color: #1EC677;
+  padding: 1.5rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  text-align: center;
+}
+
+.devise-title {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.devise-subtitle {
+  font-size: 0.9rem;
+  color: #0d4029;
+}
+
+.devise-body {
+  padding: 2rem;
+}
+
+.devise-btn {
+  background: #1EC677;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+}
+
+.devise-label {
+  color: #0d4029;
+}
+
+.form-group {
+  margin-bottom: 20px;  /* Ajustá este valor según el espacio que desees */
 }
