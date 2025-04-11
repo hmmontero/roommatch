@@ -75,12 +75,7 @@ group :test do
 end
 
 gem "solid_cable"
-<<<<<<< HEAD
+
 gem 'date_validator'
-=======
-<<<<<<< HEAD
-=======
->>>>>>> master
 
 gem 'faker', '~> 3.2'
->>>>>>> master
