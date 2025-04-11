@@ -351,8 +351,8 @@ DEPENDENCIES
   bootsnap
   bootstrap (~> 5.2)
   capybara
-  date_validator
   cloudinary
+  date_validator
   debug
   devise
   dotenv-rails
