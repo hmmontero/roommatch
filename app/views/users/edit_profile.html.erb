@@ -8,7 +8,7 @@
     <%= form_with model: @user, url: user_profile_path, method: :patch, local: true, html: { class: "profile-form" } do |f| %>
 
 
-      
+
       <div class="form-group text-center">
         <%= f.label :avatar, "Foto de perfil", style: "color: #0d4029;" %>
         <br>
@@ -57,6 +57,9 @@
       <div class="text-center profile-actions mt-4">
         <%= f.submit "Guardar cambios", class: "btn btn-save" %>
       </div>
+       <div class="text-center mt-4">
+      <%= link_to "Cambiar usuario y contraseña", edit_user_registration_path, class: "btn btn-link" %>
+    </div>
     <% end %>
   </div>
 </div>
