@@ -7,27 +7,29 @@
       </div>
       <div class="col-md-9 d-flex flex-column justify-content-center">
         <h1 style="color: #0d4029; font-weight: 700;">
-          <%= current_user.first_name %> <%= current_user.last_name %>
+          <%= @user.first_name %> <%= @user.last_name %>
         </h1>
-        <p class="text-muted"><strong>Correo:</strong> <%= current_user.email %></p>
-        <p class="text-muted"><strong>Ocupación:</strong> <%= current_user.occupation %></p>
-        <p class="text-muted"><strong>Género:</strong> <%= current_user.gender %></p>
-        <p class="text-muted"><strong>Fecha de nacimiento:</strong> <%= current_user.birth_date %></p>
+        <p class="text-muted"><strong>Correo:</strong> <%= @user.email %></p>
+        <p class="text-muted"><strong>Ocupación:</strong> <%= @user.occupation %></p>
+        <p class="text-muted"><strong>Género:</strong> <%= @user.gender %></p>
+        <p class="text-muted"><strong>Fecha de nacimiento:</strong> <%= @user.birth_date %></p>
       </div>
     </div>
-
 
     <div class="row mt-4">
       <div class="col">
         <h4 style="color: #0d4029;">Acerca de mí</h4>
         <p style="font-size: 1rem; line-height: 1.6;">
-          <%= current_user.bio.presence || "Este usuario aún no ha escrito nada sobre sí mismo." %>
+          <%= @user.bio.presence || "Este usuario aún no ha escrito nada sobre sí mismo." %>
         </p>
       </div>
     </div>
 
-    <div class="profile-actions">
-      <%= link_to "Editar perfil", edit_user_profile_path, class: "btn", style: "background: #1EC677; color: white; font-weight: bold; padding: 0.8rem 2rem; border: none;" %>
-    </div>
+    <% if @user == current_user %>
+      <div class="profile-actions">
+        <%= link_to "Editar perfil", edit_user_profile_path, class: "btn", style: "background: #1EC677; color: white; font-weight: bold; padding: 0.8rem 2rem; border: none;" %>
+      </div>
+    <% end %>
+
   </div>
 </div>
