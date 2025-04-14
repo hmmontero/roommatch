@@ -1,13 +1,16 @@
 class DetailCompatibilitiesController < ApplicationController
   def show
+    authorize DetailCompatibility
     @compatibilities = Compatibility.all
   end
 
   def new
+    authorize DetailCompatibility
     @compatibilities = Compatibility.all
   end
 
   def create
+    authorize DetailCompatibility
     @compatibilities = params[:compatibilities] || 0
     if @compatibilities.size < 10
       @compatibilities = Compatibility.all
@@ -23,10 +26,12 @@ class DetailCompatibilitiesController < ApplicationController
 
   def edit
     @detail_compatibility = DetailCompatibility.find(params[:id])
+    authorize @detail_compatibility
     @compatibilities = Compatibility.all
   end
 
   def update_user_preferences
+    authorize DetailCompatibility
     selected_ids = params[:compatibilities] || []
 
     if selected_ids.size < 10

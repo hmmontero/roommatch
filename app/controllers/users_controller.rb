@@ -1,22 +1,27 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  after_action :verify_authorized
 
   def show
     @user = User.find(params[:id])
+    authorize @user
     render :show_profile
   end
 
   def show_profile
     @user = current_user
+    authorize @user
     render :show_profile
   end
 
   def edit_profile
     @user = current_user
+    authorize @user
   end
 
   def update_profile
     @user = current_user
+    authorize @user
     if @user.update(user_params)
       redirect_to user_profile_path, notice: 'Perfil actualizado correctamente.'
     else
