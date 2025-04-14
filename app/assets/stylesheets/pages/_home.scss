@@ -60,7 +60,11 @@
 .price{
   color: black;
   font-weight: 600;
+  margin: 0;
+}
 
+.compatibility{
+  color: #5d6863;
 }
 
 .banner-image-container {
@@ -82,13 +86,15 @@
   color: white;
   text-align: center;
   width: 80%;
+
 }
 
 .banner-text h1 {
-  font-size: 2.5em;
+  font-size: 4rem;
   margin-bottom: 10px;
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: Urbanist;
 }
 
 .banner-text p {
@@ -106,7 +112,95 @@
 .acordeon-container {
   max-width: 800px;
   margin: 0 auto;
+
 }
+
+
+
+.contenedor-1{
+  background-color: #cff6e4;
+  display: flex;
+  width:100%;
+  justify-content:center;
+  align-items: center;
+  padding-bottom: 80px;
+  padding-top: 70px;
+}
+
+.bullet-1{
+  width: 500px;
+}
+
+.bullet-1 h1{
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: #0d4029;
+  font-family: Urbanist;
+}
+
+.bullet-1 p{
+  color: #5d6863;
+  font-size: 1rem;
+}
+
+.contenedor-2{
+  background-color: #fcfffe;
+  display: flex;
+  width:100%;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 80px;
+  padding-top: 70px;
+}
+
+.icon-image2{
+  width: 500px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.contenedor-3{
+  background-color: #cff6e4;
+  display: flex;
+  width:100%;
+  justify-content:center;
+  align-items: center;
+  padding-bottom: 80px;
+  padding-top: 70px;
+}
+
+.cities{
+  display: flex;
+  margin: 60px auto;
+  justify-content: space-between;
+  max-width: 950px;
+}
+
+.city-image{
+  width:220px;
+  border-radius: 10px;
+}
+
+.separador{
+  text-align: center;
+  margin-block: 40px;
+
+}
+
+.separador h1{
+  font-family: Urbanist;
+  font-weight: 700;
+  color: #0d4029;
+}
+
+.cities div p{
+  margin: 0;
+  text-align: center;
+  padding-top: 10px;
+  font-family: Urbanist;
+  font-weight: 600;
+}
+
 
 
 @media (max-width: 768px) {
