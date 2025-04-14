@@ -1,16 +1,18 @@
 class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
+
+  after_action :verify_policy_scoped, only: [:index, :my_places]
+  after_action :verify_authorized, except: [:index, :my_places]
+
 
   def index
-    @places = Place.all.order(created_at: :desc)
+    @places = policy_scope(Place).order(created_at: :desc)
 
-    if user_signed_in?
-      compatible_users = User.find_compatible_users(current_user)
-                             .select { |match| match[:match_percentage] >= 58 }
-                             .map { |match| match[:user] }
-      @places = compatible_users.flat_map(&:places)
-    end
+    compatible_users = User.find_compatible_users(current_user)
+                           .select { |match| match[:match_percentage] >= 58 }
+                           .map { |match| match[:user] }
+    @places = compatible_users.flat_map(&:places)
 
     if params[:query].present?
       @places = @places.select do |place|
@@ -28,41 +30,50 @@ class PlacesController < ApplicationController
     end
   end
 
-
-
   def show
+    authorize @place
     @booking = Booking.new
   end
 
   def new
     @place = current_user.places.new
-  end
-
-  def edit
+    authorize @place
   end
 
   def create
     @place = current_user.places.new(place_params)
+    authorize @place
 
     if @place.save
-      redirect_to @place, notice: 'Lugar creado exitosamente.'
+      redirect_to my_places_path, notice: 'Lugar creado exitosamente.'
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def update
+  def edit
+    authorize @place
+  end
 
+  def update
+    authorize @place
     if @place.update(place_params)
-      redirect_to @place, notice: 'Lugar actualizado exitosamente.'
+      redirect_to my_places_path, notice: 'Lugar actualizado exitosamente.'
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
+    authorize @place
     @place.destroy
     redirect_to places_url, notice: 'Lugar eliminado exitosamente.'
+  end
+
+  def my_places
+    @places = policy_scope(Place)
+    @places = current_user.places
+
   end
 
   private

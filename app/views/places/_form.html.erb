@@ -1,4 +1,3 @@
-
 <%= form_with(model: place, local: true, class: "place-form") do |form| %>
   <% if place.errors.any? %>
     <div class="alert alert-danger">
@@ -13,46 +12,47 @@
 
   <div>
     <label>Título:</label>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, placeholder: "Ej: Acogedor departamento en el centro" %>
   </div>
 
   <div>
     <label>Tipo de lugar:</label>
-    <%= form.select :place_type, ['Casa', 'Departamento', 'Habitación', 'Loft'] %>
+    <%= form.select :place_type, ['Casa', 'Departamento', 'Habitación', 'Loft'], { prompt: "Selecciona un tipo" } %>
   </div>
 
   <div>
     <label>Descripción:</label>
-    <%= form.text_area :description, rows: 4 %>
+    <%= form.text_area :description, rows: 4, placeholder: "Describe tu lugar en detalle..." %>
   </div>
 
   <div>
     <label>Dirección:</label>
-    <%= form.text_field :address %>
+    <%= form.text_field :address, placeholder: "Ej: Av. Principal 123, Ciudad" %>
   </div>
 
   <div>
     <label>Habitaciones disponibles:</label>
-    <%= form.number_field :available_rooms %>
+    <%= form.number_field :available_rooms, min: 1 %>
   </div>
 
   <div>
     <label>Precio mensual:</label>
-    <%= form.number_field :price, step: 0.01 %>
+    <div class="input-group">
+      <%= form.number_field :price, step: 0.01, min: 0, placeholder: "$0.00" %>
+    </div>
   </div>
 
   <div>
     <label>Fecha disponible:</label>
-    <%= form.date_field :available_date %>
+    <%= form.date_field :available_date, min: Date.today %>
   </div>
 
-  <div class="mt-2 mb-3" >
+  <div class="mt-2 mb-3">
     <label>Subir foto</label>
-    <%= form.file_field :photo, direct_upload: true %>
+    <%= form.file_field :photo, direct_upload: true, accept: "image/*" %>
   </div>
 
   <div>
     <%= form.submit 'Guardar', class: "btn-primary" %>
   </div>
-
 <% end %>

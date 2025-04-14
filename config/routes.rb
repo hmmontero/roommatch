@@ -33,4 +33,7 @@ Rails.application.routes.draw do
   resources :bookings, only: [:show] do
     resources :messages, only: [:create]
   end
+
+  get 'my_places', to: 'places#my_places', as: :my_places
+
 end

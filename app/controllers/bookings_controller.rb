@@ -1,16 +1,16 @@
 class BookingsController < ApplicationController
+  before_action :set_booking, only: [:show, :update, :accept, :decline]
+  after_action :verify_authorized
 
   def show
-    @booking = Booking.find(params[:id])
+    authorize @booking
     @message = Message.new
   end
 
   def create
     @place = Place.find(params[:place_id])
-    @booking = Booking.new
-    @booking.place = @place
-    @booking.status = :pending
-    @booking.user = current_user
+    @booking = Booking.new(place: @place, user: current_user, status: :pending)
+    authorize @booking
 
     if @booking.save
       redirect_to places_path, notice: "Solicitud enviada correctamente"
@@ -20,6 +20,7 @@ class BookingsController < ApplicationController
   end
 
   def update
+    authorize @booking
     if @booking.update(booking_params)
       redirect_to places_path, notice: "Actualizado correctamente"
     else
@@ -28,14 +29,22 @@ class BookingsController < ApplicationController
   end
 
   def accept
-    @booking = Booking.find(params[:id])
-    @booking.status = :approved
-    @booking.save
+    authorize @booking
+    @booking.update(status: :approved)
   end
 
   def decline
+    authorize @booking
+    @booking.update(status: :rejected)
+  end
+
+  private
+
+  def set_booking
     @booking = Booking.find(params[:id])
-    @booking.status = :rejected
-    @booking.save
+  end
+
+  def booking_params
+    params.require(:booking).permit(:status)
   end
 end

@@ -1,6 +1,8 @@
 class MessagesController < ApplicationController
   def create
     @booking = Booking.find(params[:booking_id])
+    authorize @booking, :show?
+
     @message = Message.new(message_params)
     @message.booking = @booking
     @message.user = current_user

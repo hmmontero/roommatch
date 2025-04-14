@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :ensure_detail_compatibilities_completed, unless: :skip_ensure_detail_compatibilities?
+
+  include Pundit::Authorization
+
+  after_action :verify_authorized, unless: :skip_pundit?
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
 
   protected
 
@@ -34,5 +42,18 @@ class ApplicationController < ActionController::Base
 
   def after_sign_up_path_for(resource)
     new_detail_compatibility_path
+  end
+
+  def skip_pundit?
+    devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+  end
+
+  def skip_ensure_detail_compatibilities?
+    devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/ || controller_name == "detail_compatibilities"
+  end
+
+  def user_not_authorized
+    flash[:alert] = "No estás autorizado para acceder a esta página."
+    redirect_to(request.referer || root_path)
   end
 end
