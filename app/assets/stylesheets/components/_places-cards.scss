@@ -268,15 +268,15 @@ $places-card-text-light: #718096;
 }
 
 .btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: $places-card-primary;
+  border-color: $places-card-primary;
   color: white !important;
 
 }
 
 .btn-success:hover {
-  background-color: #218838;
-  border-color: #1e7e34;
+  background-color: $places-card-primary-dark;
+  border-color: $places-card-primary-dark;
 }
 
 .btn-danger {
