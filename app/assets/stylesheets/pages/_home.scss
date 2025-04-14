@@ -60,7 +60,11 @@
 .price{
   color: black;
   font-weight: 600;
+  margin: 0;
+}
 
+.compatibility{
+  color: #5d6863;
 }
 
 .banner-image-container {
@@ -82,14 +86,15 @@
   color: white;
   text-align: center;
   width: 80%;
-  font-family: Urbanist;
+
 }
 
 .banner-text h1 {
-  font-size: 3.5rem;
+  font-size: 4rem;
   margin-bottom: 10px;
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: Urbanist;
 }
 
 .banner-text p {
