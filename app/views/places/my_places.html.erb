@@ -1,0 +1,112 @@
+<h2 class="mb-4 text-center">Mis publicaciones</h2>
+
+<div class="places-container-component">
+  <div class="container">
+    <div class="row g-4">
+      <% @places.each do |place| %>
+        <div class="col-md-4">
+          <article class="place-card-item">
+            <div class="place-card-header-image rounded-top position-relative">
+              <%= cl_image_tag(place.photo.key, alt: place.title, class: "w-100 h-100 object-fit-cover") if place.photo.present? %>
+              <svg class="place-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+              </svg>
+              <span class="place-card-price-badge"><%= number_to_currency(place.price) %>/mes</span>
+            </div>
+
+            <div class="place-card-body">
+              <div class="place-card-title-wrapper text-center">
+                <h3 class="place-card-title"><%= place.title %></h3>
+              </div>
+
+              <p class="place-card-address">
+                <svg class="place-card-address-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                  <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M賃 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                  <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>
+                <%= place.address %>
+              </p>
+
+              <div class="place-card-tags-container">
+                <span class="place-card-tag tag-type">
+                  <%= place.place_type %>
+                </span>
+                <span class="place-card-tag tag-rooms">
+                  <%= place.available_rooms %> hab. disponibles
+                </span>
+              </div>
+
+              <div class="place-card-footer">
+                <button type="button" class="place-card-details-btn" data-bs-toggle="modal" data-bs-target="#placeModal-<%= place.id %>">
+                  Ver Detalles
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="modal fade place-card-modal" id="placeModal-<%= place.id %>" tabindex="-1" aria-labelledby="placeModalLabel-<%= place.id %>" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+              <div class="modal-header border-0">
+                <h3 class="modal-title place-modal-title" id="placeModalLabel-<%= place.id %>"><%= place.title %></h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body py-0">
+                <div class="place-modal-icon-container text-center my-4">
+                  <% if place.photo.present? %>
+                    <%= cl_image_tag(place.photo.key, alt: place.title, class: "img-fluid rounded", style: "max-height: 300px;") %>
+                  <% else %>
+                    <svg class="place-modal-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                      <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+                    </svg>
+                  <% end %>
+                </div>
+
+                <div class="place-modal-details">
+                  <div class="detail-item mb-3">
+                    <span class="detail-label">Dirección:</span>
+                    <span class="detail-value"><%= place.address %></span>
+                  </div>
+
+                  <div class="detail-item mb-3">
+                    <span class="detail-label">Tipo:</span>
+                    <span class="detail-value"><%= place.place_type %></span>
+                  </div>
+
+                  <div class="detail-item mb-3">
+                    <span class="detail-label">Precio:</span>
+                    <span class="detail-value"><%= number_to_currency(place.price) %> / mes</span>
+                  </div>
+
+                  <div class="detail-item mb-3">
+                    <span class="detail-label">Habitaciones:</span>
+                    <span class="detail-value"><%= place.available_rooms %> disponibles</span>
+                  </div>
+
+                  <div class="detail-item mb-4">
+                    <span class="detail-label">Fecha disponible:</span>
+                    <span class="detail-value"><%= l(place.available_date) %></span>
+                  </div>
+
+                  <h6 class="fw-bold mb-3">Descripción</h6>
+                  <p class="text-muted"><%= place.description %></p>
+                </div>
+              </div>
+              <div class="modal-footer border-0">
+                <div class="d-flex justify-content-end gap-2 w-100">
+                  <%= link_to 'Editar', edit_place_path(place), class: 'btn btn-success' %>
+                  <%= button_to "Eliminar", place_path(place),
+                                method: :delete,
+                                form: { data: { turbo_confirm: "¿Estás seguro de eliminar esta publicación?" } },
+                                class: "btn btn-danger text-white hover:text-white" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
