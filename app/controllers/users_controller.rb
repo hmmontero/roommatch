@@ -1,8 +1,14 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @user = User.find(params[:id])
+    render :show_profile
+  end
+
   def show_profile
     @user = current_user
+    render :show_profile
   end
 
   def edit_profile

@@ -93,7 +93,12 @@
                         <% my_pending_bookings.each do |booking| %>
                           <div class="request-item">
                             <div class="request-info">
-                              <span class="request-user"><%= booking.user.email %></span>
+                              <span class="request-user">
+                                <%= link_to user_path(booking.user), class: "profile-link" do %>
+                                  <i class="fas fa-user-circle me-1"></i>
+                                  <%= booking.user.first_name %> <%= booking.user.last_name %>
+                                <% end %>
+                              </span>
                               <span class="request-date"><%= booking.created_at.strftime("%d/%m/%Y") %></span>
                             </div>
                             <div class="request-actions">
@@ -130,7 +135,13 @@
                           <% my_accepted_bookings.each do |booking| %>
                             <div class="request-item">
                               <div class="request-info">
-                                <span class="request-user"><%= booking.user.email %></span>
+                                <% other_user = current_user == booking.user ? booking.place.user : booking.user %>
+                                <span class="request-user">
+                                  <%= link_to user_path(other_user), class: "profile-link" do %>
+                                    <i class="fas fa-user-circle me-1"></i>
+                                    <%= other_user.first_name %> <%= other_user.last_name %>
+                                  <% end %>
+                                </span>
                                 <span class="request-date"><%= booking.updated_at.strftime("%d/%m/%Y") %></span>
                               </div>
                               <div class="request-actions">
@@ -141,6 +152,8 @@
                         </div>
                       </div>
                     <% end %>
+
+
                   </div>
                   <div class="modal-footer custom-modal-footer">
                     <button type="button" class="btn-secondary-custom" data-bs-dismiss="modal">Cerrar</button>

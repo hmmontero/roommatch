@@ -14,4 +14,25 @@ class ApplicationController < ActionController::Base
       keys: [:first_name, :last_name, :birth_date, :gender, :occupation]
     )
   end
+
+  def ensure_detail_compatibilities_completed
+    return unless current_user
+    return if request.path == new_detail_compatibility_path || controller_name == "detail_compatibilities"
+
+    if current_user.detail_compatibilities.empty?
+      redirect_to new_detail_compatibility_path, alert: "Primero completa tus preferencias para comenzar a usar RoomMatch."
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    if resource.detail_compatibilities.empty?
+      new_detail_compatibility_path
+    else
+      super
+    end
+  end
+
+  def after_sign_up_path_for(resource)
+    new_detail_compatibility_path
+  end
 end
