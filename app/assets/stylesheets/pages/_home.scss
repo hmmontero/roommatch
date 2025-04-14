@@ -231,4 +231,56 @@
     width: 90%;
   }
 
+  .contenedor-1{
+    background-color: #cff6e4;
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    text-align: center;
+    padding-bottom: 80px;
+    padding-top: 70px;
+  }
+
+  .contenedor-2{
+    background-color: #fcfffe;
+    display: flex;
+    width:100%;
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 80px;
+    padding-top: 70px;
+  }
+
+  .contenedor-3{
+    background-color: #cff6e4;
+    display: flex;
+    width:100%;
+    flex-direction: column;
+    padding-bottom: 80px;
+    padding-top: 70px;
+    text-align: center;
+  }
+
+  .cities{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .city-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin-bottom: 10px;
+  }
+
+  .city-image{
+    width: 90%
+
+  }
+
+
+
 }
