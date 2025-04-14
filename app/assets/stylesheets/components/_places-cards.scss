@@ -261,3 +261,40 @@ $places-card-text-light: #718096;
     }
   }
 }
+
+.place-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white !important;
+
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+  color: white !important;
+}
+
+.place-card-header-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}

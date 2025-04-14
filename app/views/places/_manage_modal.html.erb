@@ -1,0 +1,28 @@
+<div class="modal fade place-card-modal" id="placeModal-<%= place.id %>" tabindex="-1" aria-labelledby="placeModalLabel-<%= place.id %>" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h3 class="modal-title place-modal-title" id="placeModalLabel-<%= place.id %>"><%= place.title %></h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body py-0">
+        <% if place.photo.attached? %>
+          <%= cl_image_tag(place.photo.key, class: "img-fluid mb-3", alt: place.title) %>
+        <% end %>
+        <p><strong>Dirección:</strong> <%= place.address %></p>
+        <p><strong>Tipo:</strong> <%= place.place_type %></p>
+        <p><strong>Precio:</strong> <%= number_to_currency(place.price) %></p>
+        <p><strong>Habitaciones:</strong> <%= place.available_rooms %></p>
+        <p><strong>Disponible desde:</strong> <%= l(place.available_date) %></p>
+        <p><strong>Descripción:</strong> <%= place.description %></p>
+      </div>
+      <div class="modal-footer border-0">
+        <%= link_to "Editar", edit_place_path(place), class: "btn btn-outline-success" %>
+        <%= link_to "Eliminar", place_path(place),
+                    method: :delete,
+                    data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de eliminar este lugar?" },
+                    class: "btn btn-outline-danger" %>
+      </div>
+    </div>
+  </div>
+</div>

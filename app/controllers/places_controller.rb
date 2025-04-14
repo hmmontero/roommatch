@@ -2,8 +2,8 @@ class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-  after_action :verify_policy_scoped, only: :index
-  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: [:index, :my_places]
+  after_action :verify_authorized, except: [:index, :my_places]
 
 
   def index
@@ -45,7 +45,7 @@ class PlacesController < ApplicationController
     authorize @place
 
     if @place.save
-      redirect_to @place, notice: 'Lugar creado exitosamente.'
+      redirect_to my_places_path, notice: 'Lugar creado exitosamente.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -58,7 +58,7 @@ class PlacesController < ApplicationController
   def update
     authorize @place
     if @place.update(place_params)
-      redirect_to @place, notice: 'Lugar actualizado exitosamente.'
+      redirect_to my_places_path, notice: 'Lugar actualizado exitosamente.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -68,6 +68,12 @@ class PlacesController < ApplicationController
     authorize @place
     @place.destroy
     redirect_to places_url, notice: 'Lugar eliminado exitosamente.'
+  end
+
+  def my_places
+    @places = policy_scope(Place)
+    @places = current_user.places
+
   end
 
   private
