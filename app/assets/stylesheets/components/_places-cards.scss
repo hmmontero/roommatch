@@ -261,3 +261,40 @@ $places-card-text-light: #718096;
     }
   }
 }
+
+.place-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.btn-success {
+  background-color: $places-card-primary;
+  border-color: $places-card-primary;
+  color: white !important;
+
+}
+
+.btn-success:hover {
+  background-color: $places-card-primary-dark;
+  border-color: $places-card-primary-dark;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+  color: white !important;
+}
+
+.place-card-header-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
