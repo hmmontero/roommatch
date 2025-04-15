@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :detail_compatibilities, dependent: :destroy
   has_many :compatibilities, through: :detail_compatibilities
+  has_one_attached :photo
 
   # validates :first_name, :last_name, :email, :password, :birth_date, :gender, :bio, :ocupation, presence: true
 
