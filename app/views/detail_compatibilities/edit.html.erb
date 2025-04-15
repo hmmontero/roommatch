@@ -1,28 +1,26 @@
-
-<div class="container mt-5 ">
-
-      <h1 class="titulo_compatibility">Selecciona tus gustos para encontrar tu Roomatch ideal <i class="fa-solid fa-rocket"></i></h1>
-
+<div class="badge-title mb-1 mt-5">
+  <h3 class="titulo_compatibility">Personaliza tus preferencias</h3>
 </div>
 
-<%= form_with url: update_user_preferences_detail_compatibilities_path, method: :patch do %>
-  <div class="organization">
-    <div class="half">
-      <div>
-        <% @compatibilities.each do |c| %>
-          <div class="form-check form-check-inline">
-            <%= check_box_tag "compatibilities[]", c.id, current_user.compatibility_ids.include?(c.id), id: "option-#{c.title}", class: "compatibility-question" %>
-            <%= label_tag "option-#{c.title}", class: "m-2" do %>
-              <i class="<%= c.icon %>"></i> <%= c.title_spanish %>
-            <% end %>
-          </div>
-        <% end %>
+  <%= form_with url: update_user_preferences_detail_compatibilities_path, method: :patch do %>
+    <div class="organization">
+      <div class="half">
+        <div>
+          <% @compatibilities.each do |c| %>
+            <div class="form-check form-check-inline">
+              <%= check_box_tag "compatibilities[]", c.id, current_user.compatibility_ids.include?(c.id), id: "option-#{c.title}", class: "compatibility-question" %>
+              <%= label_tag "option-#{c.title}", class: "m-2" do %>
+                <i class="<%= c.icon %>"></i> <%= c.title_spanish %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
 
 
-  </div>
-  <div class="boton-save">
-      <%= submit_tag "Guardar preferencias", class: "btn-detail-compatibility" %>
     </div>
+    <div class="boton-save">
+        <%= submit_tag "Guardar preferencias", class: "btn-detail-compatibility" %>
+      </div>
+</div>
 <% end %>
