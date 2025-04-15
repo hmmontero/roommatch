@@ -8,24 +8,24 @@
     </div>
   </div>
 </div>
-<div class="card-container">
-   <div class ="card-home">
+<div class="card-container" data-controller="homepage">
+   <div class ="card-home" data-homepage-target="card" data-action="mouseover->homepage#highlightCard mouseout->homepage#removeHighlight">
       <%= image_tag("room1.jpg", alt: "tv", class: "card-image") %>
       <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/89/899353294016c7acf609caf0981b81daecb9fb35_full.jpg" alt="Avatar" class="avatar">
       <p class="title-card">Cabaña en Viña</p>
       <p class="texto-card">Cabaña con quincho y piscina.</p>
       <p class="price">$500 por semana</p>
   </div>
-    <div class ="card-home">
+   <div class ="card-home" data-homepage-target="card" data-action="mouseover->homepage#highlightCard mouseout->homepage#removeHighlight">
       <%= image_tag("room2.jpg", alt: "tv", class: "card-image") %>
             <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/cd/cd4e5b857bcf04386eb296e87aef22095e21bce3_full.jpg" alt="Avatar" class="avatar">
 
       <p class="title-card">Cabaña en Viña</p>
       <p class="texto-card">Cabaña con quincho y piscina.</p>
       <p class="price">$500 por semana</p>
-      <p class="compatibility">Compatibilidad: 85%</p>
+
   </div>
-    <div class ="card-home">
+   <div class ="card-home" data-homepage-target="card" data-action="mouseover->homepage#highlightCard mouseout->homepage#removeHighlight">
       <%= image_tag("room3.jpg", alt: "tv", class: "card-image") %>
         <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/5b/5b0579e815ba374d8627b8823db3fd8daf1f99dd_full.jpg" alt="Avatar" class="avatar">
        <p class="title-card">Cabaña en Viña</p>
@@ -73,26 +73,24 @@
   </div>
 
 
-  <div class="cities">
-
-    <div class="city-card">
-      <%= image_tag("lima.png", alt: "lima", class: "city-image") %>
-      <p>Lima</p>
-    </div>
-      <div class="city-card">
-      <%= image_tag("santiago.png", alt: "lima", class: "city-image") %>
-      <p>Santiago</p>
-    </div>
-     <div class="city-card">
-      <%= image_tag("ba.png", alt: "lima", class: "city-image") %>
-      <p>Buenos Aires</p>
-    </div>
-      <div class="city-card">
-      <%= image_tag("cdmx.png", alt: "lima", class: "city-image") %>
-      <p>Ciudad de Mexico</p>
-    </div>
-
+<div class="cities" data-controller="homepage">
+  <div class="city-card" data-homepage-target="card" data-action="mouseover->homepage#highlightCard mouseout->homepage#removeHighlight">
+    <%= image_tag("lima.png", alt: "Lima", class: "city-image") %>
+    <p>Lima</p>
   </div>
+  <div class="city-card" data-homepage-target="card" data-action="mouseover->homepage#highlightCard mouseout->homepage#removeHighlight">
+    <%= image_tag("santiago.png", alt: "Santiago", class: "city-image") %>
+    <p>Santiago</p>
+  </div>
+  <div class="city-card" data-homepage-target="card" data-action="mouseover->homepage#highlightCard mouseout->homepage#removeHighlight">
+    <%= image_tag("ba.png", alt: "Buenos Aires", class: "city-image") %>
+    <p>Buenos Aires</p>
+  </div>
+  <div class="city-card" data-homepage-target="card" data-action="mouseover->homepage#highlightCard mouseout->homepage#removeHighlight">
+    <%= image_tag("cdmx.png", alt: "Ciudad de México", class: "city-image") %>
+    <p>Ciudad de México</p>
+  </div>
+</div>
 
 <p class="title-FAQ">Preguntas frecuentes</p>
 <div class="container w-75 mb-5 acordeon-container">

@@ -3,27 +3,28 @@
 
 .card-image {
   width: 300px;
-  border-radius: 7px;
+  border-radius: 7px 7px 0px 0px;
 
 }
 
 .card-home{
   width: 300px;
   border: none;
+  border-radius: 10px;
 }
 
 .avatar {
-  width: 50px; /* Tamaño del avatar */
+  width: 50px;
   height: 50px;
-  border-radius: 50%; /* Para hacerlo circular */
+  border-radius: 50%;
   margin-top: 10px;
-
+  margin-left: 10px;
 }
 .card-container{
   display: flex;
   justify-content: space-between;
   max-width: 950px;
-  margin: 50px auto 0 auto;
+  margin: 60px auto 50px auto;
 }
 
 .icons-container{
@@ -48,6 +49,7 @@
   margin:0;
   font-size: 0.9rem;
   color:#0d4029;
+  text-align: center;
 }
 
 .title-card{
@@ -55,17 +57,16 @@
   padding-top: 5px;
   font-weight: 600;
   color: #1EC677;
+  text-align: center;
 }
 
 .price{
   color: black;
   font-weight: 600;
-  margin: 0;
+  text-align: center;
 }
 
-.compatibility{
-  color: #5d6863;
-}
+
 
 .banner-image-container {
   position: relative;
@@ -105,7 +106,10 @@
 .title-FAQ{
   text-align: center;
   margin-block: 30px;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
+  font-family: Urbanist;
+  font-weight: 700;
+  color: #0d4029;
 }
 
 
@@ -144,7 +148,7 @@
 }
 
 .contenedor-2{
-  background-color: #fcfffe;
+  background-color: #feffff;
   display: flex;
   width:100%;
   justify-content: center;
@@ -160,7 +164,7 @@
 }
 
 .contenedor-3{
-  background-color: #cff6e4;
+  background-color: #e2fdf0;
   display: flex;
   width:100%;
   justify-content:center;
@@ -177,8 +181,28 @@
 }
 
 .city-image{
-  width:220px;
+  width: 220px;
   border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.city-card{
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.scaled .city-image {
+  transform: scale(1.1); /* Crece al 120% cuando se aplica la clase scaled */
+}
+
+
+.cities div p{
+  margin: 0;
+  text-align: center;
+  padding-top: 10px;
+  font-family: Urbanist;
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 
 .separador{
@@ -193,13 +217,6 @@
   color: #0d4029;
 }
 
-.cities div p{
-  margin: 0;
-  text-align: center;
-  padding-top: 10px;
-  font-family: Urbanist;
-  font-weight: 600;
-}
 
 
 
@@ -232,7 +249,7 @@
   }
 
   .contenedor-1{
-    background-color: #cff6e4;
+    background-color: #e2e2e2;
     display: flex;
     flex-direction: column;
     width:100%;
@@ -242,7 +259,7 @@
   }
 
   .contenedor-2{
-    background-color: #fcfffe;
+    background-color: #4508df;
     display: flex;
     width:100%;
     flex-direction: column;
@@ -278,9 +295,15 @@
 
   .city-image{
     width: 90%
-
   }
+}
 
+.card-home {
+  transition: transform 0.3s ease;
+}
 
-
+.card-home.scaled {
+  transform: scale(1.03);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
