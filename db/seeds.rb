@@ -1,8 +1,10 @@
-DetailCompatibility.destroy_all
-Compatibility.destroy_all
-User.destroy_all
-Place.destroy_all
+require "open-uri"
+
 Booking.destroy_all
+Place.destroy_all
+DetailCompatibility.destroy_all
+User.destroy_all
+Compatibility.destroy_all
 
 Compatibility.create(title: "mascotas", title_spanish: "Mascotas", icon: "fa-solid fa-dog")
 Compatibility.create(title: "silencio", title_spanish: "Silencio", icon: "fa-solid fa-volume-mute")
@@ -42,141 +44,297 @@ Compatibility.create(title: "divertido", title_spanish: "Divertido", icon: "fa-s
 Compatibility.create(title: "ambicioso", title_spanish: "Ambicioso", icon: "fa-solid fa-chart-line")
 Compatibility.create(title: "positivo", title_spanish: "Positivo", icon: "fa-solid fa-smile-beam")
 
-nombres = ["Lucía", "Martín", "Camila", "Juan", "Valentina", "Santiago", "Carla", "Pedro", "Julieta", "Nicolás",
-           "Micaela", "Andrés", "Paula", "Diego", "Florencia", "Gabriel", "Daniela", "Alejandro", "Mariana", "Felipe",
-           "Isabel", "Ricardo", "Adriana", "Javier", "Verónica", "Roberto", "Patricia", "Luis", "Ana", "Carlos"]
+NAMES = %w[Valentina Diego Sofía Mateo Camila Andrés Mariana Sebastián Lucía Nicolás Paula Gabriel Carla Tomás Isabela Javier Ana Benjamín Martina David Laura]
+LAST_NAMES = %w[González Rodríguez Pérez Fernández López Ramírez Díaz Torres Morales Vargas Herrera Castro Jiménez Romero Méndez Delgado]
 
-apellidos = ["Pérez", "Rodríguez", "López", "González", "Martínez", "Sánchez", "Ramírez", "Gómez", "Fernández", "Torres",
-             "Silva", "Vargas", "Castro", "Romero", "Suárez", "Alvarez", "Ruiz", "Hernández", "Díaz", "Moreno"]
-
-bios = [
-  "Me encanta mantener el espacio ordenado y compartir charlas con mis compañeros de casa.",
-  "Soy tranquilo y busco convivir en armonía. Valoro el respeto y la limpieza.",
-  "Trabajo remoto y paso bastante tiempo en casa. Me gusta el ambiente relajado.",
-  "Estudio diseño gráfico y me gusta la creatividad en todos los espacios.",
-  "Soy extrovertida, me encanta cocinar y ver películas en grupo.",
-  "Amo las plantas, los espacios limpios y el silencio.",
-  "Disfruto compartir con roomies y mantener buena comunicación.",
-  "Busco tranquilidad y un ambiente positivo para estudiar.",
-  "Soy fan del orden y de las rutinas. Me gusta madrugar y aprovechar el día.",
-  "Me encanta conocer gente nueva, pero también valoro mi espacio.",
-  "Soy flexible y abierto, pero me gusta mantener los espacios limpios.",
-  "Me gusta la música y cocinar, y siempre estoy dispuesto a ayudar.",
-  "Trabajo todo el día, así que necesito un lugar tranquilo para descansar.",
-  "Estudio ingeniería y valoro mucho la organización.",
-  "Soy sociable pero respetuoso del espacio ajeno.",
-  "Artista visual que trabaja desde casa. Busco un espacio inspirador.",
-  "Estudiante de medicina que necesita un lugar tranquilo para estudiar.",
-  "Programador que valora el silencio durante las horas de trabajo.",
-  "Viajera frecuente que busca un lugar acogedor para cuando estoy en la ciudad.",
-  "Chef que disfruta cocinar para sus compañeros de casa.",
-  "Escritora que necesita un espacio silencioso y bien iluminado.",
-  "Profesor universitario que busca un ambiente intelectual.",
-  "Bailarina que practica en casa pero es muy respetuosa con los espacios compartidos.",
-  "Ingeniero ambiental que valora la sustentabilidad en el hogar.",
-  "Psicóloga que trabaja desde casa y necesita un espacio tranquilo para sesiones.",
-  "Músico que practica con audífonos y es muy respetuoso del silencio.",
-  "Estudiante de arquitectura que pasa mucho tiempo haciendo maquetas en casa.",
-  "Deportista que madruga pero es muy ordenado con sus cosas.",
-  "Fotógrafa que necesita un espacio con buena luz natural.",
-  "Emprendedor digital que viaja frecuentemente pero valora un buen espacio cuando está en casa."
+OCCUPATIONS = [
+  "Desarrollador web", "Estudiante de psicología", "Diseñadora UX", "Chef vegetariano", "Ilustrador freelance", "Asistente contable",
+  "Músico independiente", "Profesora de yoga", "Community manager", "Estudiante de medicina", "Periodista", "Productor audiovisual",
+  "Diseñadora de interiores", "Técnico en sonido", "Arquitecta", "Redactor creativo"
 ]
 
-ciudades = ["Santiago de Chile", "Bogotá", "Ciudad de México", "Lima", "Buenos Aires", "Caracas"]
-
-titulos = [
-  "Habitación cómoda y luminosa",
-  "Espacio tranquilo y céntrico",
-  "Cuarto ideal para estudiantes",
-  "Ambiente moderno y limpio",
-  "Pieza amplia en zona segura",
-  "Habitación con buena energía",
-  "Espacio compartido con buena onda",
-  "Cuarto privado en departamento familiar",
-  "Habitación con escritorio para trabajar",
-  "Pieza acogedora cerca de transporte público",
-  "Espacio minimalista y funcional",
-  "Habitación con balcón y luz natural",
-  "Cuarto en piso compartido con jardín",
-  "Pieza económica en zona universitaria",
-  "Habitación con closet amplio y baño compartido"
+INDUSTRIES = [
+  "Tecnología", "Educación", "Salud", "Arte y Cultura", "Gastronomía", "Medios", "Publicidad", "Freelance", "Bienestar"
 ]
 
-descripciones = [
-  "Encantador departamento en piso alto con vista despejada. Cuenta con amplia habitación privada, closet empotrado y escritorio ergonómico. El edificio ofrece excelentes áreas comunes: piscina climatizada, gimnasio totalmente equipado, salón de eventos con parrilla y coworking. Ubicación privilegiada a 3 minutos caminando del metro y frente a un supermercado 24/7. Ideal para profesionales que buscan comodidad y servicios premium.",
+BIOS = [
+  "Soy desarrolladora web y trabajo remoto, lo que significa que paso bastante tiempo en casa. Me encanta mantener el orden y la limpieza, ya que me ayuda a concentrarme. Disfruto mucho de la lectura, especialmente novelas de ciencia ficción, y la cocina es mi forma favorita de relajarme al final del día. Valoro la comunicación clara y me gusta compartir espacios donde cada quien respete el ambiente común pero también haya espacio para compartir una charla de vez en cuando.",
 
-  "Acogedora habitación amoblada en departamento compartido con estudiantes universitarios. Incluye cama queen, escritorio amplio y estanterías. Compartes cocina totalmente equipada (horno, microondas, airfryer) y sala de estar con smart TV. El ambiente es relajado y colaborativo - perfecto para intercambiar conocimientos. A 15 minutos en bici del distrito universitario y cerca de cafeterías con wifi gratis.",
+  "Estudio diseño gráfico y tengo una gran pasión por el arte urbano, los colores vibrantes y las formas libres. Soy relajada, creativa y con buena onda, me gusta poner música mientras trabajo y soy muy sociable, pero también sé respetar los momentos de silencio. Me interesa convivir con personas abiertas y tolerantes, que valoren la diversidad y el respeto mutuo.",
 
-  "Moderno loft convertido en espacio de trabajo/vivienda. Amplios ventanales brindan excelente luz natural todo el día. Cuenta con escritorio ergonómico, silla ejecutiva y conexión de fibra óptica 300MB. Zona ultra segura con vigilancia 24/7, cerca de parques y ciclo vías. Incluye servicio semanal de limpieza y acceso a lavandería automatizada en el edificio. Perfecto para nómadas digitales y profesionales remotos.",
+  "Trabajo en una startup de salud mental como parte del equipo de bienestar. Soy una persona muy sociable, me encanta conversar y compartir ideas, pero también necesito momentos de silencio para recargar energías. Me considero empática, organizada y muy respetuosa de los espacios comunes. Me gusta tener un ambiente armónico en casa, idealmente con personas que también valoren el equilibrio.",
 
-  "Piso compartido en exclusiva zona residencial. Habitación privada con baño propio (raro en la zona). Cocina gourmet compartida con isla central y electrodomésticos de alta gama. El vecindario es tranquilo, arbolado y con todos los servicios: farmacia 24h, gimnasio y restaurantes a 50m. Excelente conexión de transporte: 2 líneas de metro y 5 rutas de bus a menos de 3 minutos.",
+  "Soy chef profesional y paso muchas horas fuera de casa, especialmente durante el día. Aun así, me encanta compartir cenas caseras los fines de semana con quienes convivo. Soy sociable, alegre, y me gusta generar un ambiente cálido en el hogar. Me adapto con facilidad y soy muy respetuoso con los tiempos y espacios de los demás.",
 
-  "Habitación estilo boutique en casa pet-friendly. Diseño minimalista con detalles artesanales. Compartes baño estilo spa (solo con 1 persona) y cocina industrial con horno pizza. Patio interior con huerto urbano y zona lounge. Aceptamos mascotas pequeñas (tenemos 2 gatos amigables). Ubicado en barrio bohemio lleno de galerías, cafés de especialidad y tiendas vintage. A 10 min del centro financiero.",
+  "Trabajo como freelancer en producción audiovisual y tengo horarios flexibles. Me encanta rodearme de plantas, cuidar de ellas me relaja, y soy un amante de los gatos. No fumo y prefiero un ambiente tranquilo pero con buena energía. Me gusta compartir conversaciones espontáneas, pero también disfruto del silencio. Soy responsable y limpio, y valoro mucho la estética del espacio donde vivo.",
 
-  "Departamento compartido con profesionales jóvenes. Buscamos roomie que valore tanto la convivencia (noches de películas/juegos de mesa) como el respeto al espacio personal. Tu habitación tiene cerradura inteligente, cama ortopédica y sistema de climatización individual. Servicios incluidos: limpieza semanal, wifi empresarial y suscripción a Netflix/Spotify. Zona con excelente vida nocturna y delivery options.",
+  "Estudio psicología y estoy en pleno proceso de formación profesional, lo que me ha enseñado a ser muy empática y abierta. Me considero tranquila, reflexiva y muy respetuosa de los espacios comunes. Me gusta mantener un ambiente sereno en casa, ideal para el estudio y la introspección. Disfruto de las conversaciones profundas, pero también sé cuándo es momento de dar espacio.",
 
-  "Torre inteligente con amenities de lujo. Habitación con sistema domótico (iluminación, cortinas y temperatura controlables por app). Piso completo para 3 personas con limpieza robótica diaria. Edificio con piscina infinity, coworking con impresora 3D y cine privado. A 1 cuadra de centro comercial con cine y 3 min del metro. Incluye acceso a clubes de networking para residentes.",
+  "Soy músico y doy clases de guitarra, tanto presenciales como virtuales. Me considero una persona creativa, tranquila y muy responsable. Me gusta mantener mis cosas ordenadas y respetar los ritmos de quienes viven conmigo. Escucho mucha música, claro, pero siempre con auriculares si es necesario. Me llevo bien con personas sinceras y abiertas al diálogo.",
 
-  "Casa-estudio para artistas/creativos. Espacio inspirador con paredes de ladrillo visto y luz norte perfecta para fotografías. Cuenta con taller compartido (equipo básico de serigrafía y carpintería) y jardín vertical. Barrio de artistas con galerías, talleres abiertos y cafés literarios. Ideal para estudiantes de arquitectura/diseño. Se valoran proyectos colaborativos.",
+  "Trabajo como periodista cultural y suelo moverme entre cafés y mi escritorio en casa. Me apasiona escribir, leer y descubrir nuevas formas de expresión artística. Me gusta conversar y compartir ideas, pero también respeto mucho el espacio personal. Me considero sociable, curiosa y muy limpia. Idealmente, busco convivir con personas que disfruten del arte, la cultura y la buena convivencia.",
 
-  "Habitación ejecutiva con office integrado. Diseñada para teletrabajo: escritorio de 2m, silla ergonómica Herman Miller, anillo de luz para videollamadas y pared acústica. Cocina compartida con chef (opcional servicio de meal prep). Edificio con gimnasio, lavandería express y recepción 24/7. A 5 min caminando de zona financiera y centros de convenciones.",
+  "Soy redactor creativo en una agencia de publicidad. Paso bastante tiempo en casa y soy muy ordenado con mis cosas. A veces, incluso un poco obsesivo con la cocina y los olores (me gusta que todo esté limpio y fresco). Me considero amable, comunicativo y respetuoso. Me gusta vivir con personas que también valoren el orden y la buena energía en el hogar.",
 
-  "Piso compartido con profesionales internacionales. Habitación con estilo nórdico (muebles modulares de diseño). Cocina totalmente equipada incluye robot de cocina y máquina profesional de café. Sala con proyector 4K y biblioteca multilingüe. Organizamos cenas temáticas mensuales. Ubicado en zona diplomática, segura y con excelente transporte a aeropuerto.",
+  "Soy profesora de yoga y busco un espacio donde pueda mantener una rutina equilibrada. Me gusta la armonía, el silencio y la conexión con los espacios. Me considero muy tranquila, respetuosa y empática. Me gusta tener mi rincón para meditar y practicar, pero también disfruto de compartir una buena charla con quienes convivo. Lo más importante para mí es el respeto mutuo.",
 
-  "Loft industrial con toques vintage. Espacio abierto con separación visual para privacidad. Techos altos de 4m, ventanales del piso al techo y muebles de diseño reciclado. Barrio emergente lleno de cafeterías hipster, mercados orgánicos y talleres creativos. Perfecto para quienes buscan inspiración y comunidad artística. Incluye bicicleta para uso compartido.",
+  "Soy ingeniera en sistemas, gamer de corazón y fanática de los puzzles. Me encanta pasar tiempo en casa, especialmente después de una jornada laboral intensa. Soy bastante introvertida pero muy amable. Me gusta que el espacio sea tranquilo, ordenado y funcional. Valoro la limpieza, el respeto por los horarios y la buena comunicación para resolver cualquier tema de convivencia.",
 
-  "Habitación con balcón privado y vista al jardín comunitario. Baño compartido estilo japonés (solo con 1 persona). Cocina con horno de piedra y despensa orgánica compartida. La propiedad tiene huerto urbano (puedes cosechar tus hierbas). Comunidad de residentes organiza talleres de sustentabilidad mensuales. A 15 min del centro en transporte ecológico (tranvía/bicis públicas).",
+  "Estudio medicina y paso la mayoría del día en el hospital, por lo que valoro muchísimo que mi hogar sea un lugar tranquilo donde pueda descansar y estudiar. Soy muy comprometida, responsable y silenciosa. Me adapto con facilidad y soy muy respetuosa con los espacios comunes. Me llevo bien con personas organizadas y empáticas.",
 
-  "Casa colonial renovada con encanto vintage. Habitación amplia con pisos de madera original y ventilación cruzada. Compartes jardín con piscina natural, hamacas y zona de parrilla. Barrio histórico lleno de arquitectura patrimonial. Ideal para quienes aprecian el diseño tradicional con comodidades modernas. Aceptamos mascotas (tenemos espacio para correr).",
+  "Soy ilustradora freelance y trabajo desde casa la mayor parte del tiempo. Me encantan los espacios con luz natural y silencio, ideales para inspirarme y concentrarme en mis proyectos. Soy creativa, sensible y bastante introvertida. Disfruto de una convivencia tranquila, con personas que valoren tanto el orden como la estética del lugar.",
 
-  "Residencia estudiantil premium. Habitación funcional con cama loft (escritorio integrado abajo) y mucho almacenaje vertical. Compartes cocina industrial (3 refrigeradores) y sala de estudio silenciosa con cabinas individuales. Lavandería automatizada en cada piso. A 5-10 min caminando de 3 universidades principales. Servicio de limpieza diario en áreas comunes incluido.",
+  "Soy diseñador UX y trabajo en remoto desde hace algunos años. Paso muchas horas frente a la computadora, por lo que valoro tener un ambiente cómodo, funcional y tranquilo. Me considero amable, responsable y bastante meticuloso con el orden. Me gusta conversar de tecnología, diseño y cultura pop, pero también sé cuándo es momento de respetar el silencio.",
 
-  "Cuarto en departamento con baño privado. Solución perfecta para quienes valoran privacidad. Cocina americana equipada (inducción, airfryer, microondas combo). Edificio con lavandería comunitaria, bicicletero techado y recepción de paquetes. Zona céntrica pero tranquila, cerca de parques urbanos y ciclo vías. Incluye membresía a gimnasio cercano."
+  "Trabajo en marketing digital y viajo bastante por trabajo, así que a veces no estoy en casa por varios días. Cuando estoy, me gusta disfrutar de un buen café, poner música suave y tener charlas interesantes. Me considero sociable, positivo y organizado. Me gusta mantener un ambiente relajado pero funcional.",
+
+  "Soy emprendedora y llevo adelante un pequeño negocio desde casa. Me gusta tener un equilibrio entre la convivencia y los momentos a solas. Soy amigable, empática y muy ordenada. Disfruto de los espacios bien cuidados y de compartir una comida o una charla con quienes viven conmigo. Para mí, el respeto por los tiempos y la comunicación abierta son clave.",
+
+  "Trabajo como técnico en sonido y soy un apasionado de la cocina. Me gusta crear un hogar cálido, limpio y funcional. Disfruto de poner música (siempre con cuidado del volumen), preparar cenas y compartir momentos tranquilos. Soy muy responsable, respetuoso y siempre atento a las necesidades del otro.",
+
+  "Soy arquitecta y tengo una gran obsesión por el orden y la estética. Me gusta que los espacios se vean bien y se sientan cómodos. Me considero tranquila, organizada y muy respetuosa de la convivencia. Me gusta vivir en ambientes donde se valoren los pequeños detalles y haya comunicación honesta.",
+
+  "Estudio historia y me encantan los libros, los juegos de mesa y las buenas conversaciones. Soy bastante introvertido, pero muy amigable una vez que entro en confianza. Me gusta el orden, la tranquilidad y compartir alguna partida de cartas o una película en las noches frías. Me adapto fácilmente y soy muy considerado con el espacio común.",
+
+  "Soy docente de primaria, lo que me hace ser muy paciente, respetuosa y metódica. Me gusta que el hogar sea un espacio de paz y armonía. Valoro la limpieza, los horarios estables y la buena comunicación. Soy muy tranquila, pero también disfruto de compartir una charla al final del día con una taza de té."
 ]
 
-compatibility_groups = {
-  "tranquilos": ["silencio", "orden", "limpieza", "hogareno", "introvertido", "reservado"],
-  "sociables": ["musica", "fiestas", "compartir", "visitas", "divertido", "positivo"],
-  "organizados": ["orden", "limpieza", "puntual", "organizado", "detallista", "practico"],
-  "creativos": ["musica", "series", "tecnologia", "sonador", "curioso", "divertido"],
-  "activos": ["deporte", "madrugar", "activo", "ambicioso", "directo", "positivo"]
+
+TITLES = [
+  "Habitación privada en Santiago centro", "Cuarto luminoso en Bogotá", "Espacio cómodo en Palermo", "Habitación en Lima con buena ubicación",
+  "Cuarto tranquilo en Caracas", "Cuarto privado en Roma Norte, CDMX", "Espacio con vista en Providencia", "Cuarto cerca del Parque 93",
+  "Habitación artística en San Telmo", "Mini estudio en Miraflores", "Cuarto moderno en Altamira", "Habitación vintage en Condesa"
+]
+
+DESCRIPTIONS = [
+  "Departamento moderno y luminoso ubicado en el tercer piso de un edificio con ascensor, en una calle tranquila del barrio Ñuñoa. El espacio es compartido con una gata muy tranquila y cariñosa. La habitación disponible tiene buena luz natural, escritorio y clóset empotrado. Ideal para alguien que trabaje desde casa, ya que hay wifi de alta velocidad, una mesa amplia en el living y mucho silencio durante el día. A pocas cuadras hay supermercados, librerías, cafés y parques.",
+
+  "Departamento ubicado en una zona céntrica y segura, a solo 10 minutos caminando de la estación de metro. Es un edificio moderno con conserjería 24/7 y áreas comunes bien cuidadas. Se comparte con compañeros responsables y tranquilos. El ambiente es relajado, ideal para alguien que valore la armonía y la limpieza. Hay varios restaurantes, bancos, farmacias y centros culturales en los alrededores, además de un parque cercano para hacer ejercicio o relajarse.",
+
+  "Habitación amplia con baño privado en un departamento de tres habitaciones, ubicado en un tranquilo pasaje residencial en Providencia. Cocina completamente equipada, lavadora y pequeño balcón con vista interior. El vecindario tiene muchas opciones para comer, incluyendo mercados locales, panaderías artesanales y food trucks. También está cerca de clínicas, ciclovías y transporte público. El espacio es cómodo y bien distribuido, ideal para alguien independiente que valore su privacidad.",
+
+  "Casa grande de dos pisos con jardín y árboles frutales, ubicada en un sector residencial muy tranquilo. El ambiente dentro de la casa es relajado y silencioso, ideal para estudiantes o personas que necesiten concentración. Se busca alguien limpio, respetuoso y que aprecie un estilo de vida tranquilo. La habitación tiene escritorio, buena ventilación y vista al patio. A unas cuadras hay una biblioteca, un centro cultural y varias líneas de buses que conectan con el centro.",
+
+  "Departamento amplio y moderno en el piso 5 con ascensor, balcón soleado y cocina integrada. Los espacios comunes son luminosos y ventilados, perfectos para compartir comidas o trabajar un rato fuera de la habitación. Se permiten mascotas pequeñas con previa coordinación. El edificio está ubicado en un barrio con muchos árboles, cercano a parques y ciclovías. También hay cafés, farmacias y un centro comercial a 5 minutos caminando.",
+
+  "Casa antigua restaurada con detalles únicos y un estilo artístico. Los muros tienen murales pintados por sus propios habitantes. Hay muchas plantas, espacios comunes amplios, y una vibra relajada y creativa. Se valora la buena convivencia, la colaboración y el respeto por los tiempos de cada quien. Está ubicada cerca de una estación de metro y rodeada de centros culturales, ferias barriales y un parque perfecto para salir a leer o caminar.",
+
+  "Departamento compartido con dos personas más, ubicado en el segundo piso de un edificio sin ascensor en un barrio residencial tranquilo. Todas las habitaciones reciben luz natural durante el día y la ventilación cruzada permite mantener el ambiente fresco. A una cuadra hay un parque arbolado, perfecto para caminar o salir a correr. También hay minimarkets, panaderías y un gimnasio muy accesible. Ideal para quienes buscan equilibrio entre vida urbana y tranquilidad.",
+
+  "El departamento está totalmente amoblado y listo para habitar. Cuenta con cocina equipada, lavadora, espacio para colgar ropa y un improvisado coworking en el living, con escritorio grande, buena iluminación y wifi rápido. Está ubicado en una zona con excelente conectividad, con metro, buses y ciclovías a pocos pasos. También hay cafeterías con enchufes y ambientes tranquilos para estudiar o trabajar fuera de casa.",
+
+  "Departamento en piso alto, con excelente vista y mucha luz. Está ubicado a pasos del metro, supermercado, parque y centro de salud, por lo que es ideal para alguien activo y responsable. La habitación es cómoda, tiene cama de plaza y media, escritorio y repisa. El ambiente es ordenado y se valoran los espacios bien cuidados. Hay un parque a dos cuadras ideal para trotar o hacer yoga por las mañanas.",
+
+  "Habitación privada con escritorio y una ventana grande que da a un patio interior lleno de plantas. Se comparte un departamento amplio con cocina equipada, lavadora y un living muy cómodo. Ambiente libre de humo, ideal para personas tranquilas. El edificio tiene seguridad 24/7 y se encuentra en un barrio muy bien conectado con metro, buses y zonas verdes para pasear o hacer deporte.",
+
+  "Espacio en casa compartida muy inclusiva y abierta, LGBTQ+ friendly, donde viven personas creativas y de distintas áreas. Hay un taller de arte, una pequeña biblioteca común y un patio lleno de plantas. La cocina es amplia y se hacen cenas compartidas cada tanto. Está ubicada en un barrio bohemio, lleno de galerías, cafés, bares culturales y transporte cercano. Perfecta para gente joven con onda que busca algo más que solo un techo.",
+
+  "Habitación cómoda con armario grande empotrado, en un departamento compartido con una sola persona más. Baño compartido y cocina equipada. Se encuentra en un edificio tranquilo, con ascensor y lavandería. El barrio es seguro y cuenta con muchas áreas verdes, ciclovías y acceso fácil a supermercados y estaciones de metro. Ideal para alguien que busque un espacio silencioso pero bien conectado."
+]
+
+
+CITIES = {
+  "Santiago de Chile" => ["Providencia", "Ñuñoa", "Santiago Centro", "La Reina"],
+  "Bogotá" => ["Chapinero", "La Candelaria", "Teusaquillo", "Cedritos"],
+  "Buenos Aires" => ["Palermo", "San Telmo", "Belgrano", "Recoleta"],
+  "Lima" => ["Miraflores", "Barranco", "San Borja", "Pueblo Libre"],
+  "Caracas" => ["Altamira", "La Castellana", "Chacao", "Los Palos Grandes"],
+  "CDMX" => ["Roma Norte", "Condesa", "Coyoacán", "Del Valle"]
 }
 
-30.times do |i|
-  if rand < 0.7
-    group_name, group_compatibilities = compatibility_groups.to_a.sample
-    compatibilities_to_add = group_compatibilities
+property_images = [
+  # Casas (10)
+  "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1605146769289-440113cc3d00?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752227-513c65e57d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  # Apartamentos (10)
+  "https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  # Habitaciones (10)
+  "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1556020685-ae41abfc9365?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  # Lofts y estudios (10)
+  "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1556020685-ae41abfc9365?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+]
 
-    extra_compatibilities = Compatibility.where.not(title: compatibilities_to_add).sample(rand(1..3))
-    compatibilities_to_add += extra_compatibilities.map(&:title)
-  else
-    compatibilities_to_add = Compatibility.all.sample(rand(8..12)).map(&:title)
+bathroom_images = [
+  # Baños modernos (10)
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600584812238-1a5d1fce2a5b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752227-513c65e57d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687939-e1a6b5b1d3a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  # Baños con ducha (10)
+  "https://images.unsplash.com/photo-1600566752227-513c65e57d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687939-e1a6b5b1d3a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600584812238-1a5d1fce2a5b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752227-513c65e57d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  # Baños con bañera (10)
+  "https://images.unsplash.com/photo-1600607687939-e1a6b5b1d3a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600584812238-1a5d1fce2a5b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752227-513c65e57d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687939-e1a6b5b1d3a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  # Baños compartidos (10)
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600584812238-1a5d1fce2a5b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752227-513c65e57d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687939-e1a6b5b1d3a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+]
+
+kitchenPhotos = [
+  "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1583845112202-171d71b7e55e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600566752228-1d686df99f5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1595526114035-0d45a16aeb77?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600565193835-383dd97b1e5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1592229505726-cf121663d0d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600566752228-1d686df99f5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600565193835-383dd97b1e5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1592229505726-cf121663d0d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600566752228-1d686df99f5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  "https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+]
+
+
+PLACE_TYPES = ["Casa", "Departamento", "Habitación", "Loft"]
+
+def generate_address(city, neighborhood)
+  "#{neighborhood}, #{city}"
+end
+
+def attach_photos_to_place(place, photo_urls)
+  photo_urls.each_with_index do |url, index|
+    puts "Intentando abrir: #{url}"
+    begin
+      file = URI.open(url)
+      place.photos.attach(io: file, filename: "place#{index + 1}.jpg", content_type: 'image/jpg')
+    rescue OpenURI::HTTPError => e
+      puts "Error al abrir #{url}: #{e.message}"
+    end
   end
+end
+
+42.times do |i|
+  first_name = NAMES.sample
+  last_name = LAST_NAMES.sample
+  email = "usuario#{i + 1}@gmail.com"
+  password = "123456"
+  occupation = OCCUPATIONS.sample
+  industry = INDUSTRIES.sample
+  bio = BIOS.sample
 
   user = User.create!(
-    email: "usuario#{i + 1}@mail.com",
-    password: "123456",
-    first_name: nombres[i],
-    last_name: apellidos.sample,
-    birth_date: rand(20..35).years.ago,
-    gender: %w[hombre mujer otro].sample,
-    bio: bios[i],
-    occupation: ["Estudiante", "Profesional", "Artista", "Emprendedor", "Freelancer"].sample,
-    industry: ["Tecnología", "Arte", "Salud", "Educación", "Negocios"].sample
+    email: email,
+    password: password,
+    first_name: first_name,
+    last_name: last_name,
+    occupation: occupation,
+    industry: industry,
+    bio: bio
   )
 
-  Compatibility.where(title: compatibilities_to_add).each do |compat|
-    DetailCompatibility.create!(user: user, compatibility: compat)
+  Compatibility.all.sample(10).each do |compatibility|
+    DetailCompatibility.create!(user: user, compatibility: compatibility)
   end
 
-  Place.create!(
+  city = CITIES.keys.sample
+  neighborhood = CITIES[city].sample
+  title = TITLES.sample
+  description = DESCRIPTIONS.sample
+  address = generate_address(city, neighborhood)
+  price = rand(120_000..250_000)
+  latitude = rand(-33.6..6.2).round(6)
+  longitude = rand(-70.7..-58.3).round(6)
+
+  place = Place.create!(
     user: user,
-    address: "Calle #{rand(100..999)}, #{ciudades.sample}",
-    available_rooms: rand(1..3),
-    price: rand(150.0..600.0).round(2),
-    title: titulos.sample,
-    description: descripciones.sample,
-    place_type: ["Departamento", "Casa", "Loft"].sample,
-    available_date: Date.today + rand(5..30)
+    title: title,
+    description: description,
+    address: address,
+    price: price,
+    latitude: latitude,
+    longitude: longitude,
+    place_type: PLACE_TYPES.sample,
+    available_rooms: rand(1..4),
+    available_date: Date.today + rand(0..30).days
   )
+
+  # Se adjunta una imagen tomada de cada array: property_images, bathroom_images y kitchenPhotos
+  attach_photos_to_place(place, [property_images.sample, bathroom_images.sample, kitchenPhotos.sample])
 end
+
+puts "✅ Seed completado: 42 usuarios, 42 lugares, compatibilidades y fotos añadidas"
