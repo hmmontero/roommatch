@@ -169,6 +169,17 @@
   padding-top: 70px;
 }
 
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .cities{
   display: flex;
   margin: 60px auto;
@@ -188,7 +199,7 @@
 }
 
 .scaled .city-image {
-  transform: scale(1.1); /* Crece al 120% cuando se aplica la clase scaled */
+  transform: scale(1.1);
 }
 
 
@@ -306,23 +317,23 @@
 
 
 .carousel-fixed-height {
-  height: 600px; /* Ajusta la altura deseada */
+  height: 600px;
 }
 
 .carousel-fixed-height .carousel-item img {
   height: 600px;
-  object-fit: cover; /* Mantiene la proporción de la imagen */
+  object-fit: cover;
   width: 100%;
 }
 
 .carousel-caption {
-  bottom: 30%; /* Sube la caption */
-  color: #fff; /* Color del texto */
+  bottom: 30%;
+  color: #fff;
   font-size: 1.2rem;
   font-weight: 600;
 }
 .carousel-caption .btn {
-  font-size: 1.2rem; /* Tamaño del botón */
+  font-size: 1.2rem;
   border-radius: 10px;
 }
 
