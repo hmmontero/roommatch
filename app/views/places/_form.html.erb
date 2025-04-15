@@ -1,58 +1,61 @@
-<%= form_with(model: place, local: true, class: "place-form") do |form| %>
-  <% if place.errors.any? %>
-    <div class="alert alert-danger">
-      <h4><%= pluralize(place.errors.count, "error") %> impidieron guardar este lugar:</h4>
-      <ul>
-        <% place.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<div class="container" id="container">
+  <div class="form-container sign-in-container">
+    <%= form_with(model: place, local: true, class: "place-form") do |form| %>
+      <% if place.errors.any? %>
+        <div class="alert alert-danger">
+          <h4><%= pluralize(place.errors.count, "error") %> impidieron guardar este lugar:</h4>
+          <ul>
+            <% place.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+<div class="form-container">
+  <%= form_with(model: place, local: true, class: "compact-form") do |form| %>
+    <div class="form-grid">
+      <div class="form-column">
+        <%= form.text_field :title, placeholder: "Título (Ej: Acogedor departamento en el centro)" %>
+        <%= form.select :place_type, ['Casa', 'Departamento', 'Habitación', 'Loft'], { prompt: "Tipo de lugar" }, class: "form-select" %>
+      </div>
+
+      <div class="form-column">
+        <%= form.text_field :address, placeholder: "Dirección completa" %>
+        <div class="form-row">
+          <%= form.number_field :available_rooms, min: 1, placeholder: "Habitaciones", class: "half-width" %>
+          <%= form.number_field :price, step: 0.01, min: 0, placeholder: "Precio mensual ($)", class: "half-width" %>
+        </div>
+      </div>
     </div>
+
+    <div class="form-row">
+      <%= form.date_field :available_date, min: Date.today, class: "form-date" %>
+    </div>
+
+    <div class="form-row">
+      <%= form.text_area :description, rows: 3, placeholder: "Descripción detallada del lugar..." %></div>
+    <div class="file-upload">
+      <label>Subir foto del lugar</label>
+      <%= form.file_field :photo, direct_upload: true, accept: "image/*" %>
+    </div>
+
+    <div class="form-actions">
+      <%= form.submit 'Publicar lugar', class: "btn-submit" %>
+    </div>
+
   <% end %>
-
-  <div>
-    <label>Título:</label>
-    <%= form.text_field :title, placeholder: "Ej: Acogedor departamento en el centro" %>
+</div>
+    <% end %>
   </div>
 
-  <div>
-    <label>Tipo de lugar:</label>
-    <%= form.select :place_type, ['Casa', 'Departamento', 'Habitación', 'Loft'], { prompt: "Selecciona un tipo" } %>
-  </div>
-
-  <div>
-    <label>Descripción:</label>
-    <%= form.text_area :description, rows: 4, placeholder: "Describe tu lugar en detalle..." %>
-  </div>
-
-  <div>
-    <label>Dirección:</label>
-    <%= form.text_field :address, placeholder: "Ej: Av. Principal 123, Ciudad" %>
-  </div>
-
-  <div>
-    <label>Habitaciones disponibles:</label>
-    <%= form.number_field :available_rooms, min: 1 %>
-  </div>
-
-  <div>
-    <label>Precio mensual:</label>
-    <div class="input-group">
-      <%= form.number_field :price, step: 0.01, min: 0, placeholder: "$0.00" %>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-right">
+        <h1>¡Bienvenido!</h1>
+        <p>Publica tu lugar y comienza a recibir inquilinos potenciales</p>
+        <button class="ghost" id="learnMore">Conoce más</button>
+      </div>
     </div>
   </div>
-
-  <div>
-    <label>Fecha disponible:</label>
-    <%= form.date_field :available_date, min: Date.today %>
-  </div>
-
-  <div class="mt-2 mb-3">
-    <label>Subir foto</label>
-    <%= form.file_field :photo, direct_upload: true, accept: "image/*" %>
-  </div>
-
-  <div>
-    <%= form.submit 'Guardar', class: "btn-primary" %>
-  </div>
-<% end %>
+</div>
