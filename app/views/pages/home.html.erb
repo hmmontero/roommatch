@@ -1,12 +1,41 @@
 
 <div class="banner">
-  <div class="banner-image-container">
-    <%= image_tag("home-banner.jpg", alt: "tv", class: "banner-image") %>
-    <div class="banner-text">
-      <h1>Encuentra tu roomie a solo un match</h1>
-      <p>Encuentra alojamientos con cocina, wifi, jacuzzis y mucho más.</p>
+<div id="carouselExample" class="carousel slide carousel-fixed-height">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+       <%= image_tag "fotocarusel1.jpg", class: "d-block w-100", alt: "Mi imagen" %>
+        <div class="carousel-caption d-none d-md-block">
+        <h1>Encuentra tu roomie a solo un match</h1>
+                <p>Registrate y descubre a tu rommmie ideal</p>
+    <a href="#" class="btn btn-primary">Registrate ahora</a>
+      </div>
+    </div>
+    <div class="carousel-item">
+    <%= image_tag "fotocarusel2.jpg", class: "d-block w-100", alt: "Mi imagen" %>
+         <div class="carousel-caption d-none d-md-block">
+        <h1>Encuentra tu roomie a solo un match</h1>
+                <p>Registrate y descubre a tu rommmie ideal</p>
+    <a href="#" class="btn btn-primary">Registrate ahora</a>
+      </div>
+    </div>
+    <div class="carousel-item">
+    <%= image_tag "fotocarusel3.jpg", class: "d-block w-100", alt: "Mi imagen" %>
+         <div class="carousel-caption d-none d-md-block">
+        <h1>Encuentra tu roomie a solo un match</h1>
+                <p>Registrate y descubre a tu rommmie ideal</p>
+    <a href="#" class="btn btn-primary">Registrate ahora</a>
+      </div>
     </div>
   </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 </div>
 <div class="card-container" data-controller="homepage">
    <div class ="card-home" data-homepage-target="card" data-action="mouseover->homepage#highlightCard mouseout->homepage#removeHighlight">

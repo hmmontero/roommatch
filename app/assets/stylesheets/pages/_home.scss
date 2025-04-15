@@ -98,10 +98,6 @@
   font-family: Urbanist;
 }
 
-.banner-text p {
-  font-size: 1.2em;
-  color:#ffffff;
-}
 
 .title-FAQ{
   text-align: center;
@@ -306,4 +302,32 @@
   transform: scale(1.03);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.carousel-fixed-height {
+  height: 600px; /* Ajusta la altura deseada */
+}
+
+.carousel-fixed-height .carousel-item img {
+  height: 600px;
+  object-fit: cover; /* Mantiene la proporción de la imagen */
+  width: 100%;
+}
+
+.carousel-caption {
+  bottom: 30%; /* Sube la caption */
+  color: #fff; /* Color del texto */
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.carousel-caption .btn {
+  font-size: 1.2rem; /* Tamaño del botón */
+  border-radius: 10px;
+}
+
+.carousel-caption h1{
+  font-family: Urbanist;
+  font-size: 3rem;
+  font-weight: 700;
 }
