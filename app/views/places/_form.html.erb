@@ -1,5 +1,5 @@
-<div class="container-form">
-  <div class="form-container sign-in-container">
+<div class="place-container-form">
+  <div class="place-form-container place-sign-in-container">
     <%= form_with(model: place, local: true, class: "place-form") do |form| %>
       <% if place.errors.any? %>
         <div class="alert alert-danger">
@@ -12,56 +12,55 @@
         </div>
       <% end %>
 
-<div class="form-container">
+<div class="place-form-container">
   <div class="text-center mb-3">
-    <h1>Publica tu lugar</h1>
+    <h1 class="place-titulo">Publica tu lugar</h1>
   </div>
 
-  <%= form_with(model: place, local: true, class: "compact-form") do |form| %>
-    <div class="form-grid">
-      <div class="form-column">
+  <%= form_with(model: place, local: true, class: "place-compact-form") do |form| %>
+    <div class="place-form-grid">
+      <div class="place-form-column">
         <%= form.text_field :title, placeholder: "Título (Ej: Acogedor departamento en el centro)" %>
-        <%= form.select :place_type, ['Casa', 'Departamento', 'Habitación', 'Loft'], { prompt: "Tipo de lugar" }, class: "form-select" %>
+        <%= form.select :place_type, ['Casa', 'Departamento', 'Habitación', 'Loft'], { prompt: "Tipo de lugar" }, class: "place-form-select" %>
       </div>
 
-      <div class="form-column">
+      <div class="place-form-column">
         <%= form.text_field :address, placeholder: "Dirección completa" %>
-        <div class="form-row">
-          <%= form.number_field :available_rooms, min: 1, placeholder: "Habitaciones", class: "half-width" %>
+        <div class="place-form-row">
+          <%= form.number_field :available_rooms, min: 1, placeholder: "Habitaciones", class: "place-half-width" %>
         </div>
       </div>
     </div>
 
-    <div class="form-row">
-      <%= form.number_field :price, step: 0.01, min: 0, placeholder: "Precio mensual ($)", class: "half-width" %>
+    <div class="place-form-row">
+      <%= form.number_field :price, step: 0.01, min: 0, placeholder: "Precio mensual ($)", class: "place-half-width" %>
     </div>
 
-    <div class="form-row">
-      <%= form.date_field :available_date, min: Date.today, class: "form-date" %>
+    <div class="place-form-row">
+      <%= form.date_field :available_date, min: Date.today, class: "place-form-date" %>
     </div>
 
-    <div class="form-row">
+    <div class="place-form-row">
       <%= form.text_area :description, rows: 3, placeholder: "Descripción detallada del lugar..." %></div>
-    <div class="file-upload">
+    <div class="place-file-upload">
       <label>Subir foto del lugar</label>
       <%= form.file_field :photo, direct_upload: true, accept: "image/*" %>
     </div>
 
-    <div class="form-actions">
-      <%= form.submit 'Publicar lugar', class: "btn-submit" %>
+    <div class="place-form-actions">
+      <%= form.submit 'Publicar lugar', class: "place-btn-submit" %>
     </div>
 
   <% end %>
-</div>
+  </div>
     <% end %>
   </div>
 
-  <div class="overlay-container">
-    <div class="overlay">
-      <div class="overlay-panel overlay-right">
-        <h1>¡Bienvenido!</h1>
-        <p>Publica tu lugar y comienza a recibir inquilinos potenciales</p>
-        <button class="ghost" id="learnMore">Todo a un match</button>
+  <div class="place-overlay-container">
+    <div class="place-overlay">
+      <div class="place-overlay-panel place-overlay-right">
+        <h1 class="place-img">¡Bienvenido!</h1>
+        <p class="place-img">Publica tu lugar y comienza a recibir inquilinos potenciales</p>
       </div>
     </div>
   </div>

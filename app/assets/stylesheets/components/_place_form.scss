@@ -1,15 +1,15 @@
-.titulo-place{
+.place-titulo{
   text-align: center;
-  margin-top: 30px;
+  margin-top: 10px; /* Reducido de 30px */
+  margin-bottom: 10px; /* Añadido para espacio consistente */
 }
 
-.button_place{
-
+.place-button{
   display: block;
-  margin: 30px auto;
-  padding: 10px 20px;
-  font-size: 1.2em;
-  width: 200px;
+  margin: 15px auto; /* Reducido de 30px */
+  padding: 8px 15px; /* Reducido ligeramente */
+  font-size: 1.1em; /* Reducido ligeramente */
+  width: 180px; /* Reducido ligeramente */
   text-align: center;
   background-color: #495057;
   color: white;
@@ -19,24 +19,29 @@
   text-decoration: none
 }
 
-.button_place:hover {
+.place-button:hover {
   background-color: #333;
 }
 
-.button_place:active {
+.place-button:active {
   background-color: #333;
 }
 
-.titulo-place {
-  color: #1EC677;
+.place-titulo {
+  color: #0D4029;
   text-shadow: #000000;
 }
 
-* {
+.place-img {
+  color: #ffffff;
+  text-shadow: #000000;
+}
+
+.place-container * {
 	box-sizing: border-box;
 }
 
-button {
+.place-container button {
 	border-radius: 20px;
 	border: 1px solid #1EC677;
 	background-color: #1EC677;
@@ -48,19 +53,19 @@ button {
 	text-transform: uppercase;
 }
 
-button.ghost {
+.place-container button.place-ghost {
 	background-color: transparent;
 	border-color: #000000;
 }
 
-input {
+.place-container input {
 	background-color: #eee;
 	border: none;
 	padding: 12px 15px;
 	width: 40%;
 }
 
-.container-form {
+.place-container-form {
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -73,32 +78,32 @@ input {
   transform: scale(0.8);
 }
 
-.sign-in-container {
+.place-sign-in-container {
   width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.container.right-panel-active .sign-in-container {
+.place-container.place-right-panel-active .place-sign-in-container {
 	transform: translateX(100%);
 }
 
-.sign-up-container {
+.place-sign-up-container {
   left: 5%;
   width: 45%;
 	opacity: 0;
 	z-index: 1;
 }
 
-.container.right-panel-active .sign-up-container {
+.place-container.place-right-panel-active .place-sign-up-container {
 	transform: translateX(100%);
 	opacity: 1;
 	z-index: 1;
-	animation: show 0.6s;
+	animation: place-show 0.6s;
 }
 
-@keyframes show {
+@keyframes place-show {
 	0%, 49.99% {
 		opacity: 0;
 		z-index: 1;
@@ -110,7 +115,7 @@ input {
 	}
 }
 
-.overlay-container {
+.place-overlay-container {
 	position: absolute;
 	top: 0;
 	left: 50%;
@@ -119,13 +124,15 @@ input {
 	overflow: hidden;
 	transition: transform 0.6s ease-in-out;
 	z-index: 100;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px
 }
 
-.container.right-panel-active .overlay-container{
+.place-container.place-right-panel-active .place-overlay-container{
 	transform: translateX(-100%);
 }
 
-.overlay {
+.place-overlay {
   background-image: url('place_banner.jpg');
   background-size: contain;
   background-position: 400% center;
@@ -140,11 +147,11 @@ input {
   transition: transform 0.6s ease-in-out;
 }
 
-.container.right-panel-active .overlay {
+.place-container.place-right-panel-active .place-overlay {
   	transform: translateX(50%);
 }
 
-.overlay-panel {
+.place-overlay-panel {
   position: absolute;
   display: flex;
   align-items: center;
@@ -158,28 +165,28 @@ input {
   transition: transform 0.6s ease-in-out;
 }
 
-.overlay-left {
+.place-overlay-left {
 	transform: translateX(-20%);
 }
 
-.container.right-panel-active .overlay-left {
+.place-container.place-right-panel-active .place-overlay-left {
 	transform: translateX(0);
 }
 
-.overlay-right {
+.place-overlay-right {
 	right: 0;
 	transform: translateX(0);
 }
 
-.container.right-panel-active .overlay-right {
+.place-container.place-right-panel-active .place-overlay-right {
 	transform: translateX(20%);
 }
 
-.social-container {
+.place-social-container {
 	margin: 20px 0;
 }
 
-.social-container a {
+.place-social-container a {
 	border: 1px solid #DDDDDD;
 	border-radius: 50%;
 	display: inline-flex;
@@ -191,56 +198,56 @@ input {
 }
 
 
-.compact-form {
+.place-compact-form {
   background-color: #FFFFFF;
-  padding: 20px;
-  height: 100%;
-  padding: 20px 25px;
+  padding: 15px 20px; /* Reducido ligeramente */
+  height: calc(100% - 40px); /* Ajusta al contenedor padre */
   transform: none;
   margin-left: -5%;
 }
 
-.form-grid {
+.place-form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
   height: calc(100% - 60px);
 }
 
-.form-column {
+.place-form-column {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.form-row {
+.place-form-row {
   display: flex;
   gap: 15px;
 }
 
-.half-width {
+.place-half-width {
   flex: 1;
 }
 
-.form-actions {
-  margin-top: 20px;
+.place-form-actions {
+  margin-top: 10px; /* Reducido de 20px */
   grid-column: span 2;
   text-align: center;
+  padding-bottom: 10px; /* Añadido para espacio */
 }
 
-input, select, textarea {
+.place-form input, .place-form select, .place-form textarea {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   width: 100%;
 }
 
-textarea {
+.place-form textarea {
   min-height: 100px;
   resize: vertical;
 }
 
-.btn-submit {
+.place-btn-submit {
   background-color: #1EC677;
   color: white;
   padding: 12px 30px;
