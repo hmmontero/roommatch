@@ -117,57 +117,61 @@
 
 
 
-.contenedor-1{
-  background-color: #cff6e4;
+/* === CONTENEDORES === */
+.contenedor-1,
+.contenedor-2,
+.contenedor-3 {
   display: flex;
-  width:100%;
-  justify-content:center;
+  width: 100%;
+  justify-content: center;
   align-items: center;
-  padding-bottom: 80px;
-  padding-top: 70px;
+  padding: 70px 0 80px;
 }
 
-.bullet-1{
+/* Colores individuales */
+.contenedor-1 { background-color: #cff6e4; }
+.contenedor-2 { background-color: #feffff; }
+.contenedor-3 { background-color: #e2fdf0; }
+
+/* === BULLETS === */
+.icons-text {
   width: 500px;
 }
 
-.bullet-1 h1{
+.icons-text h1 {
   font-size: 3.8rem;
   font-weight: 700;
   color: #0d4029;
   font-family: Urbanist;
 }
 
-.bullet-1 p{
+.icons-text p {
   color: #5d6863;
   font-size: 1rem;
 }
 
-.contenedor-2{
-  background-color: #feffff;
-  display: flex;
-  width:100%;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 80px;
-  padding-top: 70px;
-}
-
-.icon-image2{
+/* === IMÁGENES === */
+.icon-image2 {
   width: 500px;
-  margin-left: 10px;
-  margin-right: 20px;
+  margin: 0 20px 0 10px;
 }
 
-.contenedor-3{
-  background-color: #e2fdf0;
-  display: flex;
-  width:100%;
-  justify-content:center;
-  align-items: center;
-  padding-bottom: 80px;
-  padding-top: 70px;
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.fade-up { transform: translateY(60px); }
+.fade-down { transform: translateY(-60px); }
+.fade-left { transform: translateX(60px); }
+.fade-right { transform: translateX(-60px); }
 
 .cities{
   display: flex;
@@ -188,7 +192,7 @@
 }
 
 .scaled .city-image {
-  transform: scale(1.1); /* Crece al 120% cuando se aplica la clase scaled */
+  transform: scale(1.1);
 }
 
 
@@ -223,14 +227,15 @@
   }
 
   .card-home {
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 30px auto;
   }
 
   .card-image {
-    width: 90%;
+    width: 100%;
     border-radius: 7px;
     object-fit: cover;
   }
@@ -306,25 +311,28 @@
 
 
 .carousel-fixed-height {
-  height: 600px; /* Ajusta la altura deseada */
+  height: 600px;
 }
 
 .carousel-fixed-height .carousel-item img {
   height: 600px;
-  object-fit: cover; /* Mantiene la proporción de la imagen */
+  object-fit: cover;
   width: 100%;
 }
 
 .carousel-caption {
-  bottom: 30%; /* Sube la caption */
-  color: #fff; /* Color del texto */
+  bottom: 30%;
+  color: #fff;
   font-size: 1.2rem;
   font-weight: 600;
 }
 .carousel-caption .btn {
-  font-size: 1.2rem; /* Tamaño del botón */
+  font-size: 1.2rem;
   border-radius: 10px;
+  padding: 20px;
 }
+
+
 
 .carousel-caption h1{
   font-family: Urbanist;
