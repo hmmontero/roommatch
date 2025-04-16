@@ -3,7 +3,11 @@
 
     <div class="row mb-5">
       <div class="col-md-3 profile-avatar">
-        <%= image_tag 'room1.jpg', alt: 'Foto de perfil', size: '150x150', class: 'rounded-circle shadow' %>
+        <% if @user.photo.attached? %>
+          <%= image_tag @user.photo, alt: 'Foto de perfil', size: '150x150', class: 'rounded-circle shadow' %>
+        <% else %>
+          <%= image_tag 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', alt: 'Foto de perfil por defecto', size: '150x150', class: 'rounded-circle shadow' %>
+        <% end %>
       </div>
       <div class="col-md-9 d-flex flex-column justify-content-center">
         <h1 style="color: #0d4029; font-weight: 700;">
