@@ -1,15 +1,15 @@
 .place-titulo{
   text-align: center;
-  margin-top: 10px; /* Reducido de 30px */
-  margin-bottom: 10px; /* Añadido para espacio consistente */
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .place-button{
   display: block;
-  margin: 15px auto; /* Reducido de 30px */
-  padding: 8px 15px; /* Reducido ligeramente */
-  font-size: 1.1em; /* Reducido ligeramente */
-  width: 180px; /* Reducido ligeramente */
+  margin: 15px auto;
+  padding: 8px 15px;
+  font-size: 1.1em;
+  width: 180px;
   text-align: center;
   background-color: #495057;
   color: white;
@@ -74,8 +74,8 @@
   flex-grow: 1;
   width: 800px;
   max-width: 90%;
-  margin: 5px auto 30px;
   transform: scale(0.8);
+  margin: 0% auto 0%;
 }
 
 .place-sign-in-container {
@@ -135,7 +135,7 @@
 .place-overlay {
   background-image: url('place_banner.jpg');
   background-size: contain;
-  background-position: 400% center;
+  background-position: 500% center;
   background-repeat: no-repeat;
   background-color: #f8f8f8;
   color: #000000;
@@ -200,8 +200,8 @@
 
 .place-compact-form {
   background-color: #FFFFFF;
-  padding: 15px 20px; /* Reducido ligeramente */
-  height: calc(100% - 40px); /* Ajusta al contenedor padre */
+  padding: 15px 20px;
+  height: calc(100% - 40px);
   transform: none;
   margin-left: -5%;
 }
@@ -229,10 +229,10 @@
 }
 
 .place-form-actions {
-  margin-top: 10px; /* Reducido de 20px */
+  margin-top: 10px;
   grid-column: span 2;
   text-align: center;
-  padding-bottom: 10px; /* Añadido para espacio */
+  padding-bottom: 10px;
 }
 
 .place-form input, .place-form select, .place-form textarea {
