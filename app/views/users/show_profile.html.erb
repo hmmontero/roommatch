@@ -1,53 +1,76 @@
-<section class="profile-page" style="background-color: #fff; min-height: 70vh;">
-  <div class="container py-4 h-100">
+<section class="myprofile-page" style="background-color:#fff; min-height:70vh;">
+  <div class="myprofile-container py-4 h-100">
     <div class="row justify-content-center align-items-center h-100">
       <div class="col-12">
-        <div class="card" style="min-height: 70vh; height: 70vh; display: flex; margin-top: 20px; flex-direction: column; border: none; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);border-radius: .5rem; overflow: hidden;">
+        <div class="card myprofile-card" style="min-height:70vh; height:70vh; margin-top:20px;">
           <div class="row g-0 h-100 w-100 align-items-stretch">
-            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-white h-100"
-                 style="padding: 30px; background: url('/assets/room1.jpg') no-repeat center center; background-size: cover;">
-                <% if @user.photo.attached? %>
-                  <%= image_tag url_for(@user.photo), alt: 'Foto de perfil', class: 'rounded-circle shadow', style: "object-fit: cover; width: 150px; height: 150px;" %>
-                <% else %>
-                  <%= image_tag 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', alt: 'Foto de perfil por defecto', class: 'rounded-circle shadow', style: "object-fit: cover; width: 150px; height: 150px;" %>
-                <% end %>
-              <h3 style="font-size: 2rem; margin-bottom: 8px;"><%= current_user.first_name %> <%= current_user.last_name %></h3>
-              <p style="font-size: 1.2rem;"><%= current_user.occupation %></p>
+            <!-- Columna izquierda: Foto y datos básicos -->
+            <div class="col-md-6 myprofile-photo-section" style="padding:30px;">
+              <% if @user.photo.attached? %>
+                <%= image_tag url_for(@user.photo),
+                      alt: "Foto de perfil",
+                      class: "myprofile-avatar rounded-circle shadow",
+                      style: "object-fit: cover; width:150px; height:150px;" %>
+              <% else %>
+                <%= image_tag 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                      alt: "Foto de perfil por defecto",
+                      class: "myprofile-avatar rounded-circle shadow",
+                      style: "object-fit: cover; width:150px; height:150px;" %>
+              <% end %>
+              <h3 class="myprofile-name" style="font-size:2rem; margin-bottom:8px;">
+                <%= current_user.first_name %> <%= current_user.last_name %>
+              </h3>
+              <p class="myprofile-occupation" style="font-size:1.2rem;">
+                <%= current_user.occupation %>
+              </p>
             </div>
-
-            <div class="col-md-6 d-flex align-items-stretch h-100">
-              <div class="card-body p-4 w-100 h-100 d-flex flex-column justify-content-evenly" style="flex: 1; height: 100%;">
-                <h5 style="color: #0d4029; font-size: 2rem; font-weight: 700;">Información Personal</h5>
-                <hr class="mt-0 mb-2">
-
+            <!-- Columna derecha: Información adicional -->
+            <div class="col-md-6 myprofile-info-section d-flex align-items-stretch">
+              <div class="card-body p-4 myprofile-info d-flex flex-column justify-content-evenly"
+                   style="flex:1; height:100%;">
+                <h5 class="myprofile-title" style="font-size:2rem; font-weight:700; color:#0d4029;">
+                  Mi Perfil
+                </h5>
+                <hr class="myprofile-divider" style="margin-top:0; margin-bottom:10px;">
 
                 <div class="row">
-                  <div class="col-6 mb-2">
-                    <h6 style="font-size: 1.2rem;">Email</h6>
-                    <p class="text-muted" style="font-size: 1rem;"><%= current_user.email %></p>
+                  <div class="col-6 myprofile-data mb-2">
+                    <h6 style="font-size:1.1rem;">Email</h6>
+                    <p class="text-muted" style="font-size:0.9rem;">
+                      <%= current_user.email %>
+                    </p>
                   </div>
-                  <div class="col-6 mb-2">
-                    <h6 style="font-size: 1.2rem;">Género</h6>
-                    <p class="text-muted" style="font-size: 1rem;"><%= current_user.gender %></p>
+                  <div class="col-6 myprofile-data mb-2">
+                    <h6 style="font-size:1.1rem;">Género</h6>
+                    <p class="text-muted" style="font-size:0.9rem;">
+                      <%= current_user.gender %>
+                    </p>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-6 mb-2">
-                    <h6 style="font-size: 1.2rem;">Acerca de mí</h6>
-                    <p class="text-muted" style="font-size: 1rem;"><%= current_user.bio.presence || "No has escrito nada aún." %></p>
+                  <div class="col-6 myprofile-data mb-2">
+                    <h6 style="font-size:1.1rem;">Acerca de mí</h6>
+                    <p class="text-muted myprofile-bio" style="font-size:0.9rem; text-align:justify;">
+                      <%= current_user.bio.presence || "No has escrito nada aún." %>
+                    </p>
                   </div>
-                  <div class="col-6 mb-2">
-                    <h6 style="font-size: 1.2rem;">Fecha de nacimiento</h6>
-                    <p class="text-muted" style="font-size: 1rem;"><%= current_user.birth_date %></p>
+                  <div class="col-6 myprofile-data mb-2">
+                    <h6 style="font-size:1.1rem;">Fecha de nacimiento</h6>
+                    <p class="text-muted" style="font-size:0.9rem;">
+                      <%= current_user.birth_date %>
+                    </p>
                   </div>
                 </div>
-                <div class="d-flex justify-content-start">
-                  <%= link_to "Editar perfil", edit_user_profile_path, class: "btn btn-save", style: "padding: 0.8rem 2rem; font-size: 1.2rem;" %>
+                <div class="myprofile-actions d-flex justify-content-center">
+                  <%= link_to "Editar perfil",
+                              edit_user_profile_path,
+                              class: "btn myprofile-btn",
+                              style: "padding:0.5rem 1rem; font-size:1rem; width:auto;" %>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </div> <!-- Fin columna derecha -->
+          </div> <!-- Fin row -->
+        </div> <!-- Fin card -->
       </div>
     </div>
   </div>
