@@ -7,7 +7,7 @@ html, body {
 .profile-container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 80px 40px;
+  padding: 0;
   background: #fff;
   min-height: 100vh;
 }
@@ -15,20 +15,24 @@ html, body {
 .profile-inner {
   max-width: 100%;
   margin: 0 auto;
-  background: #fff
+  background: #fff;
 }
 
 .profile-card {
   width: 100%;
+  margin: auto;
+  margin-top: 60px;
   background: #fff;
   border: none;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 40px;
+  padding: 0;
+  height: 100%;
 }
 
+/* Aquí se usa el gradiente de la plantilla en lugar del color sólido */
 .profile-header {
-  background-color: #1EC677;
+  background: linear-gradient(to right bottom, #1EC677, #1BBF67);
   padding: 1.5rem;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
@@ -83,4 +87,11 @@ html, body {
   padding: 0.6rem 1.5rem;
   border: none;
   display: inline-block;
+}
+
+/* Reglas adicionales del template (si necesitás usarlas en algún caso) */
+.gradient-custom {
+  background: #1EC677;
+  background: -webkit-linear-gradient(to right bottom, #1EC677, #1BBF67);
+  background: linear-gradient(to right bottom, #1EC677, #1BBF67);
 }

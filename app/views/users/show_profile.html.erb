@@ -1,39 +1,53 @@
-<div class="profile-container">
-  <div class="profile-card">
+<section class="profile-page" style="background-color: #fff; min-height: 70vh;">
+  <div class="container py-4 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12">
+        <!-- Card con altura reducida -->
+        <div class="card" style="min-height: 70vh; height: 70vh; display: flex; margin-top: 20px; flex-direction: column; border: none; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);border-radius: .5rem; overflow: hidden;">
+          <div class="row g-0 h-100 w-100 align-items-stretch">
+            <!-- Columna izquierda: Foto y datos básicos -->
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-white h-100"
+                 style="padding: 30px; background: url('/assets/room1.jpg') no-repeat center center; background-size: cover;">
+              <%= image_tag 'fotocarusel1.jpg', alt: 'Foto de perfil', class: 'rounded-circle shadow',
+                             style: "width: 180px; height: 180px; object-fit: cover; border: 4px solid #fff; margin-bottom: 15px;" %>
+              <h3 style="font-size: 2rem; margin-bottom: 8px;"><%= current_user.first_name %> <%= current_user.last_name %></h3>
+              <p style="font-size: 1.2rem;"><%= current_user.occupation %></p>
+            </div>
 
-    <div class="row mb-5">
-      <div class="col-md-3 profile-avatar">
-        <% if @user.photo.attached? %>
-          <%= image_tag @user.photo, alt: 'Foto de perfil', size: '150x150', class: 'rounded-circle shadow' %>
-        <% else %>
-          <%= image_tag 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', alt: 'Foto de perfil por defecto', size: '150x150', class: 'rounded-circle shadow' %>
-        <% end %>
-      </div>
-      <div class="col-md-9 d-flex flex-column justify-content-center">
-        <h1 style="color: #0d4029; font-weight: 700;">
-          <%= @user.first_name %> <%= @user.last_name %>
-        </h1>
-        <p class="text-muted"><strong>Correo:</strong> <%= @user.email %></p>
-        <p class="text-muted"><strong>Ocupación:</strong> <%= @user.occupation %></p>
-        <p class="text-muted"><strong>Género:</strong> <%= @user.gender %></p>
-        <p class="text-muted"><strong>Fecha de nacimiento:</strong> <%= @user.birth_date %></p>
+            <div class="col-md-6 d-flex align-items-stretch h-100">
+              <div class="card-body p-4 w-100 h-100 d-flex flex-column justify-content-evenly" style="flex: 1; height: 100%;">
+                <h5 style="color: #0d4029; font-size: 2rem; font-weight: 700;">Información Personal</h5>
+                <hr class="mt-0 mb-2">
+
+
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <h6 style="font-size: 1.2rem;">Email</h6>
+                    <p class="text-muted" style="font-size: 1rem;"><%= current_user.email %></p>
+                  </div>
+                  <div class="col-6 mb-2">
+                    <h6 style="font-size: 1.2rem;">Género</h6>
+                    <p class="text-muted" style="font-size: 1rem;"><%= current_user.gender %></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <h6 style="font-size: 1.2rem;">Acerca de mí</h6>
+                    <p class="text-muted" style="font-size: 1rem;"><%= current_user.bio.presence || "No has escrito nada aún." %></p>
+                  </div>
+                  <div class="col-6 mb-2">
+                    <h6 style="font-size: 1.2rem;">Fecha de nacimiento</h6>
+                    <p class="text-muted" style="font-size: 1rem;"><%= current_user.birth_date %></p>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                  <%= link_to "Editar perfil", edit_user_profile_path, class: "btn btn-save", style: "padding: 0.8rem 2rem; font-size: 1.2rem;" %>
+                </div>
+              </div>
+            </div> <!-- Fin columna derecha -->
+          </div> <!-- Fin row -->
+        </div> <!-- Fin card -->
       </div>
     </div>
-
-    <div class="row mt-4">
-      <div class="col">
-        <h4 style="color: #0d4029;">Acerca de mí</h4>
-        <p style="font-size: 1rem; line-height: 1.6;">
-          <%= @user.bio.presence || "Este usuario aún no ha escrito nada sobre sí mismo." %>
-        </p>
-      </div>
-    </div>
-
-    <% if @user == current_user %>
-      <div class="profile-actions">
-        <%= link_to "Editar perfil", edit_user_profile_path, class: "btn", style: "background: #1EC677; color: white; font-weight: bold; padding: 0.8rem 2rem; border: none;" %>
-      </div>
-    <% end %>
-
   </div>
-</div>
+</section>
