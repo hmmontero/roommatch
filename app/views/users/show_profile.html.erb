@@ -2,14 +2,15 @@
   <div class="container py-4 h-100">
     <div class="row justify-content-center align-items-center h-100">
       <div class="col-12">
-        <!-- Card con altura reducida -->
         <div class="card" style="min-height: 70vh; height: 70vh; display: flex; margin-top: 20px; flex-direction: column; border: none; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);border-radius: .5rem; overflow: hidden;">
           <div class="row g-0 h-100 w-100 align-items-stretch">
-            <!-- Columna izquierda: Foto y datos básicos -->
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-white h-100"
                  style="padding: 30px; background: url('/assets/room1.jpg') no-repeat center center; background-size: cover;">
-              <%= image_tag 'fotocarusel1.jpg', alt: 'Foto de perfil', class: 'rounded-circle shadow',
-                             style: "width: 180px; height: 180px; object-fit: cover; border: 4px solid #fff; margin-bottom: 15px;" %>
+                <% if @user.photo.attached? %>
+                  <%= image_tag url_for(@user.photo), alt: 'Foto de perfil', class: 'rounded-circle shadow', style: "object-fit: cover; width: 150px; height: 150px;" %>
+                <% else %>
+                  <%= image_tag 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', alt: 'Foto de perfil por defecto', class: 'rounded-circle shadow', style: "object-fit: cover; width: 150px; height: 150px;" %>
+                <% end %>
               <h3 style="font-size: 2rem; margin-bottom: 8px;"><%= current_user.first_name %> <%= current_user.last_name %></h3>
               <p style="font-size: 1.2rem;"><%= current_user.occupation %></p>
             </div>
@@ -44,9 +45,9 @@
                   <%= link_to "Editar perfil", edit_user_profile_path, class: "btn btn-save", style: "padding: 0.8rem 2rem; font-size: 1.2rem;" %>
                 </div>
               </div>
-            </div> <!-- Fin columna derecha -->
-          </div> <!-- Fin row -->
-        </div> <!-- Fin card -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
