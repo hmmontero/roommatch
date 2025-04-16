@@ -330,9 +330,15 @@
   font-size: 1.2rem;
   border-radius: 10px;
   padding: 20px;
+  background: #1EC677;
+  border: none;
+
 }
 
-
+.carousel-caption .btn:hover {
+  background: #17b06a; /* un poco más oscuro */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
 
 .carousel-caption h1{
   font-family: Urbanist;
