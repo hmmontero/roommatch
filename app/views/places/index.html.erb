@@ -4,13 +4,12 @@
       <div class="hero-content" style="position: relative; z-index: 1;">
         <h1 class="hero-title display-4 fw-bold mb-3" style="color: #0D4029;">Encuentra tu lugar ideal</h1>
         <p class="hero-subtitle lead mb-4" style="color: #0D4029;">Descubre espacios únicos para vivir, trabajar y disfrutar.</p>
-        <%= link_to "Explora ahora", "#places", class: "btn btn-lg rounded-pill", style: "background-color: #1EC677; color: #fff; border: none; padding: 15px 30px;" %>
       </div>
     </div>
 
     <div class="search-section mb-5">
       <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
-        <h1 class="places-main-title mb-3 mb-3 md-0 text-center w-100">Lugares Disponibles</h1>
+        <h1 class="places-main-title mb-3 mb-3 md-0 text-center w-100" style="color: #0D4029;">Lugares Disponibles</h1>
         <% if user_signed_in? %>
           <div class="d-flex flex-column flex-md-row gap-3 mx-auto mt-3 mt-md-0 mb-3">
             <%= link_to new_place_path, class: 'btn btn-lg rounded-pill new-place-btn btn-success-custom d-flex align-items-center' do %>
@@ -219,7 +218,7 @@
                     </div>
                   <% else %>
                     <%= simple_form_for([place, Booking.new], html: { class: 'w-100' }) do |f| %>
-                      <%= f.button :submit, "Reservar Ahora", class: 'place-modal-book-btn w-100 py-3' %>
+                      <%= f.button :submit, "Match", class: 'place-modal-book-btn w-100 py-3' %>
                     <% end %>
                   <% end %>
                 <% else %>
@@ -233,4 +232,3 @@
     </div>
   </div>
 </div>
-
