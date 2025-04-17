@@ -4,7 +4,6 @@
       <div class="col-12">
         <div class="card myprofile-card" style="min-height:70vh; height:70vh; margin-top:20px;">
           <div class="row g-0 h-100 w-100 align-items-stretch">
-            <!-- Columna izquierda: Foto y datos básicos -->
             <div class="col-md-6 myprofile-photo-section" style="padding:30px;">
               <% if @user.photo.attached? %>
                 <%= image_tag url_for(@user.photo),
@@ -18,13 +17,13 @@
                       style: "object-fit: cover; width:150px; height:150px;" %>
               <% end %>
               <h3 class="myprofile-name" style="font-size:2rem; margin-bottom:8px;">
-                <%= current_user.first_name %> <%= current_user.last_name %>
+                <%= @user.first_name %> <%= @user.last_name %>
               </h3>
               <p class="myprofile-occupation" style="font-size:1.2rem;">
-                <%= current_user.occupation %>
+                <%= @user.occupation %>
               </p>
             </div>
-            <!-- Columna derecha: Información adicional -->
+
             <div class="col-md-6 myprofile-info-section d-flex align-items-stretch">
               <div class="card-body p-4 myprofile-info d-flex flex-column justify-content-evenly"
                    style="flex:1; height:100%;">
@@ -37,13 +36,13 @@
                   <div class="col-6 myprofile-data mb-2">
                     <h6 style="font-size:1.1rem;">Email</h6>
                     <p class="text-muted" style="font-size:0.9rem;">
-                      <%= current_user.email %>
+                      <%= @user.email %>
                     </p>
                   </div>
                   <div class="col-6 myprofile-data mb-2">
                     <h6 style="font-size:1.1rem;">Género</h6>
                     <p class="text-muted" style="font-size:0.9rem;">
-                      <%= current_user.gender %>
+                      <%= @user.gender %>
                     </p>
                   </div>
                 </div>
@@ -51,26 +50,29 @@
                   <div class="col-6 myprofile-data mb-2">
                     <h6 style="font-size:1.1rem;">Acerca de mí</h6>
                     <p class="text-muted myprofile-bio" style="font-size:0.9rem; text-align:justify;">
-                      <%= current_user.bio.presence || "No has escrito nada aún." %>
+                      <%= @user.bio.presence || "No ha escrito nada aún." %>
                     </p>
                   </div>
                   <div class="col-6 myprofile-data mb-2">
                     <h6 style="font-size:1.1rem;">Fecha de nacimiento</h6>
                     <p class="text-muted" style="font-size:0.9rem;">
-                      <%= current_user.birth_date %>
+                      <%= @user.birth_date %>
                     </p>
                   </div>
                 </div>
-                <div class="myprofile-actions d-flex justify-content-center">
-                  <%= link_to "Editar perfil",
-                              edit_user_profile_path,
-                              class: "btn myprofile-btn",
-                              style: "padding:0.5rem 1rem; font-size:1rem; width:auto;" %>
-                </div>
+
+                <% if @user == current_user %>
+                  <div class="myprofile-actions d-flex justify-content-center">
+                    <%= link_to "Editar perfil",
+                                edit_user_profile_path,
+                                class: "btn myprofile-btn",
+                                style: "padding:0.5rem 1rem; font-size:1rem; width:auto;" %>
+                  </div>
+                <% end %>
               </div>
-            </div> <!-- Fin columna derecha -->
-          </div> <!-- Fin row -->
-        </div> <!-- Fin card -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
