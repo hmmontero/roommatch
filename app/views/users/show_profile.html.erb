@@ -4,26 +4,28 @@
       <div class="col-12">
         <div class="card myprofile-card" style="min-height:70vh; height:70vh; margin-top:20px;">
           <div class="row g-0 h-100 w-100 align-items-stretch">
-            <div class="col-md-6 myprofile-photo-section" style="padding:30px;">
-              <% if @user.photo.attached? %>
-                <%= image_tag url_for(@user.photo),
-                      alt: "Foto de perfil",
-                      class: "myprofile-avatar rounded-circle shadow",
-                      style: "object-fit: cover; width:150px; height:150px;" %>
-              <% else %>
-                <%= image_tag 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-                      alt: "Foto de perfil por defecto",
-                      class: "myprofile-avatar rounded-circle shadow",
-                      style: "object-fit: cover; width:150px; height:150px;" %>
-              <% end %>
-              <h3 class="myprofile-name" style="font-size:2rem; margin-bottom:8px;">
-                <%= @user.first_name %> <%= @user.last_name %>
-              </h3>
-              <p class="myprofile-occupation" style="font-size:1.2rem;">
-                <%= @user.occupation %>
-              </p>
+            <div  class="col-md-6 myprofile-photo-section"
+                  style="padding:30px; background: url('https://raw.githubusercontent.com/hmmontero/roommatch/refs/heads/master/app/assets/images/room1.jpg') no-repeat center center; background-size: cover;">
+              <div class="text-center">
+                <% if @user.photo.attached? %>
+                  <%= image_tag url_for(@user.photo),
+                        alt: "Foto de perfil",
+                        class: "myprofile-avatar rounded-circle shadow",
+                        style: "object-fit: cover; width:150px; height:150px;" %>
+                <% else %>
+                  <%= image_tag 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                        alt: "Foto de perfil por defecto",
+                        class: "myprofile-avatar rounded-circle shadow",
+                        style: "object-fit: cover; width:150px; height:150px;" %>
+                <% end %>
+                <h3 class="myprofile-name" style="font-size:2rem; margin-bottom:8px;">
+                  <%= @user.first_name %> <%= @user.last_name %>
+                </h3>
+                <p class="myprofile-occupation" style="font-size:1.2rem;">
+                  <%= @user.occupation %>
+                </p>
+              </div>
             </div>
-
             <div class="col-md-6 myprofile-info-section d-flex align-items-stretch">
               <div class="card-body p-4 myprofile-info d-flex flex-column justify-content-evenly"
                    style="flex:1; height:100%;">
