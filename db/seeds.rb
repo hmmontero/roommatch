@@ -295,7 +295,7 @@ end
 
 42.times do |i|
   gender = ["Masculino", "Femenino"].sample
-  birth_date = Date.new(rand(1..28), rand(1..12), rand(1960..2005))
+  birth_date = Date.new(rand(1960..2005), rand(1..12), rand(1..28))
 
   first_name = gender == "Femenino" ? FEMALE_NAMES.sample : MALE_NAMES.sample
   last_name = LAST_NAMES.sample
