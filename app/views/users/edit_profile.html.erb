@@ -3,7 +3,7 @@
     <div class="row g-0 h-100 w-100 align-items-stretch">
       <!-- Columna izquierda: Foto y datos básicos (no editables en este formulario) -->
       <div class="col-md-6 myprofile-photo-section"
-           style="padding:30px; background: url('/assets/room1.jpg') no-repeat center center; background-size: cover;">
+           style="padding:30px; background: url('https://raw.githubusercontent.com/hmmontero/roommatch/refs/heads/master/app/assets/images/room1.jpg') no-repeat center center; background-size: cover;">
         <div class="text-center">
           <% if @user.photo.attached? %>
             <%= image_tag url_for(@user.photo),
