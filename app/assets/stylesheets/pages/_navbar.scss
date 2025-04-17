@@ -36,7 +36,8 @@
   }
 
   .navbar-brand img {
-    width: 60px;
+    margin-left: 50px;
+    width: 100px;
     transition: transform 0.3s ease;
     &:hover {
       transform: scale(1.05);
