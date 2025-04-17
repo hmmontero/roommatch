@@ -2,7 +2,7 @@
   background: white;
   margin-top: 30px;
   height: calc(100vh - 150px); // más altura útil
-  max-height: 100vh;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -11,6 +11,7 @@
   max-width: 800px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow: hidden;
+  margin-bottom: 30px;
 
   h1 {
     border-bottom: 1px solid #89f5b9;
@@ -52,13 +53,13 @@
   }
 
   .message--sent {
-    background-color: #78eead;
+    background: linear-gradient(to right, #78eead, #56ecbf);
     align-self: flex-end;
     text-align: right;
   }
 
   .message--received {
-    background-color: #f0f0f0;
+    background: linear-gradient(to right, #e6eaff, #d0dbee);
     align-self: flex-start;
     text-align: left;
   }
@@ -88,4 +89,20 @@
 
 .title-chat-new {
   font-size: 1.3rem;
+  color: #0d4029;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message {
+  animation: fadeInUp 0.4s ease-out;
 }
