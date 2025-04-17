@@ -294,10 +294,10 @@ def attach_photos_to_place(place, photo_urls)
 end
 
 42.times do |i|
-  gender = ["male", "female"].sample
-  birth_date = Date.new(rand(1960..2005), rand(1..12), rand(1..28))
+  gender = ["Masculino", "Femenino"].sample
+  birth_date = Date.new(rand(1..28), rand(1..12), rand(1960..2005))
 
-  first_name = gender == "female" ? FEMALE_NAMES.sample : MALE_NAMES.sample
+  first_name = gender == "Femenino" ? FEMALE_NAMES.sample : MALE_NAMES.sample
   last_name = LAST_NAMES.sample
   email = "usuario#{i + 1}@gmail.com"
   password = "123456"
@@ -317,7 +317,7 @@ end
     birth_date: birth_date
   )
 
-  profile_photo_url = if gender == "female"
+  profile_photo_url = if gender == "Femenino"
                         profilePhotos[0..20].sample
                       else
                         profilePhotos[21..-1].sample
